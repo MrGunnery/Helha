@@ -1,0 +1,17 @@
+Commandes :
+
+>Switch(config)# service password-encryption                                    'chiffrer le mots de passe (Hashage)'
+>Switch(config)# enable secret <lemotsdepasse>                                  'mets un mots de passe pour passer en enable'
+--
+Securiser la liaison console :
+>Switch(config)# line console 0
+>Switch(config-line)# password <Cisc0>                                          'mots de passe Cisco0'
+>Switch(config-line)# login
+--
+>Switch(config-line)# copy running-config startup-config                        'enregistre la configuration'
+--
+Réinitialisé le Switch :
+>Switch(config)# erase startup-config
+>Switch(config)# reload
+--
+>Switch(config)# show ip interface brief
