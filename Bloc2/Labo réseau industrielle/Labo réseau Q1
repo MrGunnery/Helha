@@ -1,0 +1,69 @@
+Labo reseau automate
+
+ajouter une connexion Ethernet avec les adresses :
+
+=> API.1 = 10.10.1.1
+=> API.2 = 10.10.1.2
+
+API.1 envoie a API.2 une serie de 20 nombre reels
+
+Procedure:
+
+=> delais de mise hors-tension
+clear IP : adresse 84.3.25.36 API.1
+adresse 84.3.47.92 API.2
+Demonter la CPU
+Commutee a l'arriere en mode clear IP (normalement mode 14)
+Remonter la CPU + la mettre sous tension
+Controle voyant ethernet => clignolte 6 fois
+
+=> Recuperer le programme: Unity + PC (84.3.x.y) => Transfert API vers Pc
+Protocole TCP/IP : adresse 84.3.25.36
+Dans Unity : Automate, definir l'adresse
+=> Modifier le programme: recharge Pc vers automate
+
+=> Repasser la CPU en mode Storage (mode 12 ou 13)
+
+Dans Unity
+
+Changer le nom du programme en Melange_abc_Transfert => Regenerer le programme
+Archiver le programme dans un dossier labo_reseau_automate
+Configuration d'un lien reseau (en deux etapes)
+1 =>decrire le reseau
+2 =>se reseau est ettacher a tel carte de communication
+
+Dans Unity:	Communication, reseaux, nouveau reseau
+Ouvrir le nouveau reseau.
+Choisir la bonne CPU (CPU 2020, CPU 2030 >=v2.0), OK, oui
+configurer l'adresse Ip de l'automate et le masque de sous-reseau => 192.168.0.23/24
+Valider les modification
+Configuration automate, port ethernet
+creer le lien logique avec l'API
+
+creer nouvel section => GESTION_DE_COMMUNICATION en FBD
+commentaire : envoie de 20 reels à l'adresse 10.10.1.2
+CTRL+I / bibliotheque/communication/WRITE_VAR   OK
+ADR => Adresse automate: tous tanque c'est un tableau d'entier => adresse_destinataire
+OBJ => type d'ecriture :'%mw' :> mode ecriture en mot
+NUM => Appartir du nombre : 45
+NB => nombre de donnée : 50 car 20 reel*2 +10
+EMIS => donner a emmetre : BUFFER_EMISSION
+GEST => PARAMETRE_GESTION_WRITE_VAR1 type array[0..3] of int
+double clic sur le bloc, activer EN/ENO (activer/desactiver)
+EN : PARAMETRE_GESTION_WRITE_VAR1[0].0
+
+CTRL+I /ADDM  OK
+OUT Mettre la sortie a l'entrée ADR de WRITE_VAR
+Mettre une variable a la sorti
+Adresse_addn => type ADDN => variable adresse_destinataire
+IN Mettre une chaine de caractere
+Adresse destinataire
+liaison logique + IP destinataire
+'ETH_22[192.168.0.44'
+
+Aller dans variable
+DATA_INT // array[1..10] of int // %mw230
+DATA_PRODUCT array[1..20] of real // %mw240
+BUFFER_EMISSION // array[1..50] of int // %mw230
+
+CTRL+I /READ_VAR OK
