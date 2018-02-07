@@ -1,0 +1,50 @@
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Limitez l'accès à un commutateur.• Chiffrez tous les mots de passe.
+• Sécurisez l'accès au mode d'exécution privilégié.
+• Sécurisez l'accès à la console.
+• Sécurisez l'accès VTY.
+
+Chiffrez tous les mots de passe.
+Sw-Floor-1(config)# service password-encryption
+Sw-Floor-1(config)#
+Sécurisez l'accès au mode d'exécution privilégié avec le mot de passe. Cla55.
+Sw-Floor-1(config)# enable secret Cla55
+Sw-Floor-1(config)#
+Sécurisez la ligne de la console.• Utilisez le mot de passe Cisc0.
+• Autorisez la connexion.
+Sw-Floor-1(config)# line console 0
+Sw-Floor-1(config-line)# password Cisc0
+Sw-Floor-1(config-line)# login
+SW-Floor-1(ligne de config)#
+Sécurisez les 16 premières lignes VTY.• Utilisez le mot de passe Cisc0.
+• Autorisez la connexion.
+Sw-Floor-1(config)# line vty 0 15
+Sw-Floor-1(config-line)# password Cisc0
+Sw-Floor-1(config-line)# login
+Sw-Floor-1(ligne de config)#
+Vous avez correctement limité l'accès à un commutateur.
+
+Show startup-config => fichier stocké en NVRAM, demarage
+Show running-config => fichier stocké en RAM, configuration
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Configuration d'une interface de commutateur virtuelle (via TCP/IP, comme examen VLAN janvier)
+• Passez en mode de configuration d'interface pour le réseau local virtuel VLAN 1.
+• Configurez l'adresse IPv4 « 192.168.10.2 » et le masque de sous-réseau « 255.255.255.0 ».
+• Activez l'interface.
+
+Switch(config)# interface vlan 1
+Switch(config-if)# ip address 192.168.10.2 255.255.255.0
+Switch(config-if)# no shutdown
+%LINK-5-CHANGED: Interface Vlan1, changed state to up
+Switch(config-if)#
+Vous avez configuré l'interface de commutateur virtuelle pour VLAN 1.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

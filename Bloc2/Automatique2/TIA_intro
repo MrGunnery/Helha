@@ -1,0 +1,100 @@
+Ouvrir TIA Portal
+ 		imposible d'ouvrir plusieur projet
+creation du projet => prendre une biere
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Premiere etape, ajouter un appareil
+• 	controlleur = automate
+   ◇ Prendre automate CPU 1214C AC/DC
+      ▪ Pour simuler il faut que la CPU soit en version 4.1
+• 	hmi = ecran
+• 	system PC = serveur, pc, etc
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Configuration de l'automate
+• Changer l'adresse IP de la CPU
+   ◇ cliquer sur le port ethernet de la CPU
+• Connecter la CPU a un reseau
+   ◇ Pour voir si on est connecter au reseau, il y a un mode vue du reseau
+      ▪ En mode vue du reseau, on peut voir tous les equimement du reseau et affichier leur adresse ip
+• Activer le memento de cadence
+   ◇ clique droit sur CPU, proprieter
+      ▪ memento de cadence
+         - activer le memento
+            → s'il faut changer l'octet
+         - possible d'activer un memento de systeme
+            → s'il faut changer l'octet
+• Compiler le programme
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Tester l'automate en mode simulation
+• Simuler l'automate avec l'option simmuler => prendre une biere
+   ◇ quand on simule, on ne peut pas etre connecter a un autre autumate
+• Une nouvel fenetre s'ouvre, Chargement etendu
+   ◇ Montre tous les parametres du chargement du programme
+      ▪ cocher afficher tous les automate compatible
+         - selectioner l'automate
+      ▪ Charger le programme
+   ◇ Nouvel fenetre
+      ▪ cocher l'option tous faire
+      ▪ charger
+      ▪ mettre l'automate en run
+   ◇ Nouvel fenetre de gestion de l'automate
+• Aller dans table de visualitation et de forcage
+   ◇ nouvel table de visualitation
+      ▪ normalement il y a un tableau ouvert dans la fenetre principale
+         - une adresse commence par un “%” ex: %MB0
+         - on peut choisir le format d'affichage
+         - les memento de cadence on un nom, on peut directement rechercher en tapan “clock”
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Creation de programme
+• Bloc de programme
+   ◇ creer un nouveau bloc en LOG
+      ▪ ennoncer, qand on pousse sur un bouton racorder a la premiere entrée de l'automate, une sortie clignote a une frequence de 0.5hz
+         - il faut savoir quel est la premiere adresse d'entrée et de sortie
+            → la premiere adresse d'entrée est I0.0
+               ⇒ aller dans variable de lAPI
+                  • ajouter la variabe avec l'adresse de la premiere entrée
+            → la premiere adresse de sortie est Q0.0
+               ⇒ aller dans variable API
+                  • ajouter la variable avec l'adresse de la premiere sortie
+         - Dans le reseau
+            → Mettre un bloc =
+               ⇒ ajouter un bloc & a la broche d'entrée du bloc =
+               ⇒ mettre la variable de la premiere sortie dans le =
+            → Pour le bloc &
+               ⇒ a une entrée, on met le bouton (adresse de la premiere entrée)
+               ⇒ a l'autre on met le clock 0.5 hz
+         - compiler le programme
+         - on peut charger la bloc directement dans l'automate
+         - on peut voir le fonctionnement avec le mode lunnette
+         - il faut ajouter le bloc fonction que l'on a créer dans le bloc OB1, sinon il ne sera pas executer
+         - Pour voir la simulation, aller dans la fenetre de gestion de l'automate
+            → agrandir la fenetre pour afficher tous les parametre
+            → aller dans table SIM
+               ⇒ ajouter une table avec les vaiables que l'on veut
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ajouter une lampe sur l'HMI
+• ajouter un HMI
+   ◇ ajouter un appareil
+      ▪ HMI
+         - KTP600Basic
+            → assistant de configuration
+               ⇒ choisir les bonnes option
+• ajouter une vue a l'HMI / modifier la vue de base
+   ◇ ajouter se que l'on veut sur l'ecran
+      ▪ Pour lancer l'ecran, meme chose que wincc avec STEP 7
+      ▪ Tous objet que l'on met sur l'ecran peut devenir un bouton
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Archiver le programme
+
+ 

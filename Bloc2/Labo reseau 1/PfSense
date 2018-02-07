@@ -1,0 +1,46 @@
+PfSense
+
+Black liste:
+
+installer squid, squidgard
+
+activer squid proxy server
+activer squidguard proxy filtre
+ajouter la black liste
+telecharger la black liste dans l'onglet black liste
+ajouter un timer
+ajouter un group acl
+
+configurer le group acl
+		client source mettre le reseau
+		target rules
+			premiere colone, bloquer les sites que l'on veut bloquer tout le temps, whiteliste les sites qui peuvent etre visible pendant la plage horaire
+			dexieme colone, bloquer tous les site que l'on veut bloquer meme ceux de la plage horaire
+common acl bloquer tout les site que l'on veut bloquer
+
+touche windows > proxy > serveur proxy > adresse > port
+
+firewall > rule > lan > add
+			desactivé regle qui laisse tous passé
+			activer les regle que l'on veut ( lan net vers tous)
+
+WPAD
+	diagnostic > edit file >
+					function FindProxyForURL(url,host)
+ 					{
+ 					return "PROXY 192.168.1.1:3128";
+ 					}
+
+					/usr/local/www/wpad.dat
+					/usr/local/www/wpad.da
+					/usr/local/www/proxy.pa
+	desactiver dns resolver
+	activer dns forwarder
+	ajouter un host override
+		host wpad
+		domain "le domaine de PFsense
+		ip adresse :
+	Save
+
+touche windows > proxy > desactiver serveur proxy
+touche windows > proxy > utiliser un script... > http://wpad."domain".lan/wpad.dat ex http://wpad.helha.lan/wpad.dat

@@ -1,0 +1,91 @@
+VLAN
+https://www.it-connect.fr/etherchannel-sous-cisco-avec-lacp/
+https://ciscotracer.wordpress.com/2015/10/01/etherchannel-lacp-pagp/
+https://ciscotracer.wordpress.com/2015/03/27/routage-inter-vlan-partie-12-router-on-a-stick/
+
+
+Vlan
+
+commencer par configurer les pc (addresse ip et passerelle)
+
+Mettre tous les switch en mode rapid-pvst
+		spanning-tree mode rapid-pvst
+
+Ensuite faire vtp (ne pas oublier de mettre les liaisons entre switch en mode trunk)
+	sur un switch mettre en serveur, configurer le mdp et le nom de domain
+		creer les vlan sur se switch, si tous fonctionnent les autres switch auront les vlan
+	sur les autres switch mettre en client, configurer le mdp et le nom de domain
+		verifier si les vlan sont present
+				show vlan brief // show vtp status
+
+Ensuite faire etherchannel
+	sur chaque switch, faire des groupes differents entre chaque switch
+		Pour le premier switch (haut), configurer les interfaces qui sont relier au premier swich
+				SW1>enable
+				SW1#configure terminal
+				SW1(config)#interface range fa0/1-2
+				SW1(config-if-range)#channel-group 1 mode active
+				!
+				SW1(config-if-range)#interface range fa0/3-4
+				SW1(config-if-range)#channel-group 2 mode active
+
+				SW1(config)#interface port-channel 1
+				SW1(config-if)#switchport mode trunk
+
+				SW1(config)#interface port-channel 2
+				SW1(config-if)#switchport mode trunk
+		Pour le second switch(bas gauche),
+				SW2>enable
+				SW2#configure terminal
+				Enter configuration commands, one per line. End with CNTL/Z.
+				SW2(config)#interface range fa0/1-2
+				SW2(config-if-range)#channel-group 1 mode passive
+				!
+				interface range fa0/3-4
+				SW2(config-if-range)#channel-group 3 mode passive
+
+				SW1(config)#interface port-channel 1
+				SW1(config-if)#switchport mode trunk
+
+				SW1(config)#interface port-channel 3
+				SW1(config-if)#switchport mode trunk
+
+		Pour le dernier switch(bas droite)
+				SW3>enable
+				SW3#configure terminal
+				Enter configuration commands, one per line. End with CNTL/Z.
+				SW3(config)#interface range fa 0/1-2
+				SW3(config-if-range)#channel-group 2 mode passive
+				!
+				SW3(config)#interface range fa 0/3-4
+				SW3(config-if-range)#channel-group 3 mode active
+
+				SW1(config)#interface port-channel 3
+				SW1(config-if)#switchport mode trunk
+
+				SW1(config)#interface port-channel 2
+				SW1(config-if)#switchport mode trunk
+
+Configurer les interfaces des valns sur tous les switchs (vlan 10,20,30) et faire le vlan natif
+
+				Pour le vlan natif(sur chaque liaison entre switch)
+				SWx(config-if)#switchport trunk native vlan 99
+
+				Pour Vlan 10,20,30(sur les liaison entre les pc du vlan)
+				SWx(config-if)#switchport acces vlan xx
+
+Configuerer le routeur pour intra-vlan
+				Router>enable
+				Router#configure terminal
+				Router(config)#interface fastEthernet 0/0
+				Router(config-if)#no shutdown
+
+				Router(config-if)#interface fastEthernet 0/0.x
+				Nous modifions lencapsulation en dot1Q et nous la taguons sur le VLAN xx
+					(faire le meme pour les autres vlan en changant: l'interface, le vlan et l'adresse ip)
+				Router(config-subif)#encapsulation dot1Q xx
+				Router(config-subif)#ip address 192.168.xx.xx 255.255.255.0
+
+Faire des tests, normalement tous fonctionnent, la premiere fois que l'on fait un ping vers en autre pc, on obtient un
+request time out, c'est normal, c'est a cause de la requete arp car au moment du premier ping, le pc source ne connait pas
+le pc cible et doit donc le rechercher sur le réseau

@@ -1,0 +1,157 @@
+Carte enp0s3 en bridge
+Carte interne enp0s8
+Nom du serveur 'srv'
+Nom du domaine 'helha1'
+Nom du root 'user1'
+Nom du client windows 7 'client-PC'
+
+-Testé sur Ubuntu 16.04 et Windows 10-
+
+vi /etc/network/interfaces
+	auto enp0s8
+	iface enp0s8 inet static
+	address 192.168.10.1
+	netmask 255.255.255.0
+
+service networking restart
+
+apt-get -y install isc-dhcp-server
+
+vi /etc/dhcp/dhcpd.conf
+
+	--MODIFIER--
+	option domain-name "helha1"
+	option domain-name-servers 8.8.8.8;
+	--DECOMMENTER--
+	authoritative
+	(en dessous de #this is a very basic subnet declaration)
+	subnet 192.168.10.0 netmask 255.255.255.0 {
+	range 192.168.10.100 192.168.10.200;
+	option routers 192.168.10.1;}
+
+service isc-dhcp-server restart
+
+vi /etc/rc.local
+	echo 1 > /proc/sys/net/ipv4/ip_forward
+	iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+	exit 0
+
+/etc/rc.local
+
+service networking restart
+
+apt-get -y install samba
+
+service nmbd restart
+service smbd restart
+vi
+groupadd students
+groupadd machines
+
+adduser student1 --ingroup students
+adduser student2 --ingroup students
+useradd client-PC$ -g machines -s /bin/false -d /dev/null
+
+smbpasswd -a -m client-PC$
+smbpasswd -a user1
+	mdp : pass
+smbpasswd -a student1
+	mdp : pass
+smbpasswd -a student2
+	mdp : pass
+
+vi /etc/samba/smb.conf
+	--MODIFIER--
+	admin users = user1
+	workgroup = helha1
+	server role = classic primary domain controller
+	--DECOMMENTER--
+	wins support = no
+	logon path = \\%N\profiles\%U
+	logon home = \\%N\%U
+	logon script = start.bat
+
+	[homes]
+	comment = Home Directories
+	browseable = yes
+	read only = no
+	create mask = 0700
+	directory mask = 0700
+
+	[netlogon]
+	comment = Network Logon Service
+	path = /netlogon
+	guest ok = yes
+	read only = yes
+
+	[profiles]
+	comment = Users profiles
+	path = /profiles
+	guest ok = no
+	browseable = no
+	read only = no
+	create mask = 0600
+	directory mask = 0700
+
+	[profiles.V2]
+	copy = profiles
+
+	[docs]
+	comment = share drive
+	path = /home/docs
+	guest ok = yes
+	browseable = yes
+	read only = no
+	create mask = 0777
+	directory mask = 0777
+
+service nmbd restart
+service smbd restart
+
+mkdir /profiles
+mkdir /profiles/user1
+mkdir /profiles/profiles1
+mkdir /profiles/profiles1.V2
+mkdir /profiles/profiles2
+mkdir /profiles/profiles2.V2
+mkdir /netlogon
+mkdir /home/docs
+
+cd /profiles
+chmod 700 student1
+chmod 700 student1.V2
+chmod 700 student2
+chmod 700 student2.V2
+chmod 700 user1
+
+chown student1:students student1
+chown student1:students student1.V2
+chown user1:user1 user1
+chown student2:students student2.V2
+chown student2:students student2
+
+cd /
+chmod 755 netlogon
+chmod 777 home/docs
+
+CONNECT CLIENT WINDOWS 7
+search => regedit => HKEY_local_machine > system > currentControlSet > services > Lanman Workstation > Paramaters
+	créer DWord 32 bits
+		DNSNameResolutionRequired > 0
+	créer DWord 32 bits
+		DomainCompatibilityMode > 1
+
+changer domaine => helha1
+redémarrer
+connecter avec student1 (mdp : pass)
+
+dans Z:\ => créer start.bat => net use w: \\srv\docs
+
+DANS UBUNTU
+mv /home/student1/start.bat /netlogon/
+chmod 755 /netlogon/start.bat
+
+VERIFIER W:\ SUR WINDOWS PUIS DECONNECTER
+
+DANS UBUNTU
+mv /profiles/student1.V2/NTUSER.DAT /profiles/student1.V2/NTUSER.MAN

@@ -1,0 +1,12 @@
+• WEB 1.0 => site static
+• WEB 2.0 => site dinamique
+   ◇ possibilité de modifier la base de donnée depuis le site
+   ◇ possibilité de lire des donnée dans la base de donnée depuis le site
+
+Rappel, une clef primaire veut dire qu'il ne peut apparaitre qu'une fois. Une clef etrangere est une clef qui est primaire dans une autre tables => lien entre les tables
+
+NoSQL => plus rapide, utiliser pour les sites de ventes, ou tous site qui cherche la rapidité
+		   => “not only” SQL
+
+• le language pour les base de donnée est le SQL pour toutes les base de donnée meme NoSQL
+   ◇ SQL => structured Query Language
