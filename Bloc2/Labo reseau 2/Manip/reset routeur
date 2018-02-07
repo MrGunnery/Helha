@@ -1,0 +1,17 @@
+Pour reset le mdp du routeur
+  ctrl + a + z, faire send break
+  confreg 0X2142
+  reset
+  enable secret mdp
+  copy running-config startup-config
+
+  enable
+  config terminal
+  config-register 0X2102
+  exit
+  reload
+
+Pour reset la config du routeur
+  enable
+  erase startup-config
+  reload
