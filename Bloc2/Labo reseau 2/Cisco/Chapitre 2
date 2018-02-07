@@ -1,8 +1,4 @@
 
-
-
-
-
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Limitez l'accès à un commutateur.• Chiffrez tous les mots de passe.
@@ -10,7 +6,7 @@ Limitez l'accès à un commutateur.• Chiffrez tous les mots de passe.
 • Sécurisez l'accès à la console.
 • Sécurisez l'accès VTY.
 
-Chiffrez tous les mots de passe.ggg
+Chiffrez tous les mots de passe.
 
 Sw-Floor-1(config)# service password-encryption
 Sw-Floor-1(config)#
