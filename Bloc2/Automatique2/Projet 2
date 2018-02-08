@@ -1,0 +1,40 @@
+creer un nouveau projet
+
+ajouter un automate 1200 CPU 1214 AC DC rly
+
+configurer le reseaux
+
+ajouter memento de cadence
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ajouter un autre automate 1500 CPU 1511 pn
+
+configurer le reseau
+
+ajouter une catre d'entrée DI32x24DCBA
+    si il faut, il existe un catalogue enligne avec d'autre carte d'extension
+ajouter une carte de sortie DQ 32x24VDC/0.5A BA_1
+ajouter une carte d'entrée AI 8xU/I/RTD/TC ST_1
+  Dans cette carte, on peut regler chaque entrée en fonction de se q'on veut faire avec (PT100, etc)
+ajouter une carte de sortie AQ 8xU/I HS_1
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ajouter des variable
+  variable API
+    afficher toutes les variables
+      Les adresses commence par un %
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ajouter un bloc de fonction
+  ajouter le bloc de fonction a OB1
+    Faire le programme
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ajouter un ecran d'exploitation KT700
+  passer par l'assistant (plus simple)  => creer les differentes liaison
+    selectionner un automate
+      choisir les differentes options utiles

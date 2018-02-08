@@ -1,0 +1,7 @@
+exercice:
+  sur un HMI, il faut :
+    un bouton BP_AU
+    un bouton ACK
+    un voyant securité generaleµ
+    ajouter les voyant pour les lampes, rouge et vert
+    un champ affichant le nombre d'arret par jour
