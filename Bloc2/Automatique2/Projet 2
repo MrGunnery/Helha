@@ -38,3 +38,15 @@ ajouter un ecran d'exploitation KT700
   passer par l'assistant (plus simple)  => creer les differentes liaison
     selectionner un automate
       choisir les differentes options utiles
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pour lire l'heure:
+  aller dans instruction avancer date et heure
+    dans cette onglet, il y a tous se qui concernne les operation sur le temps
+Pour recuperer la date et l'heure RD_SYS_T au format LDT
+  format date and time (pointeur)
+Pour convertir le format LDT (date and time), bloc T_CONV
+  LDT TO Time_of_day => l'heure de la CPU
+  format time of day utilisable dans des comparaison
+Pour comparer les temps, Bloc T_COMP
