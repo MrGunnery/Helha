@@ -1,0 +1,57 @@
+toutes communication commence par un message, ou une information
+il faut que les deux partis communique de la meme maniere
+  pour se faire, on code l'information
+  le codage est addapté au support de transmission
+les messsages doivent avoir un certain format:
+  1. destination (mac)
+  2. source (mac)
+  3. indicateur de debut
+  4. ip destinataire
+  5. ip source
+  6. donnée
+  7. fin de tram
+Les messages sont decomposer en plusieurs petite partie
+sy,chro des messsages
+  Methode d'acces
+    determine le moment ou un individu peut commencer a envoyer un message
+  Conrtole de flux
+    determine la vitesse de transmission car si les informations arrive trop rapidement
+      on ne comprend plus ex: LeLou
+  Delai d'attente de la reponse
+    reaction a avoir en cas de non reponse de la part du destinataire
+options de remise de messages
+  Monodiffusion
+    communication un a un
+  multidiffusion
+    communication a plusieurs
+  diffusion
+    communication a tous le monde
+Une suite de protocoles est un ensemble de protocoles qui fonctionnent ensemble
+ pour fournir des services de communication réseau complets.
+Model osi                   Modele Tcp/Ip
+  application
+        contien les protocoles utiliser
+  presentation
+        representation commune des donnée
+  session
+        organiser le dialogue et gerer l'echange de donnée
+  transport
+        deffini le service pour segmenter (tcp udp)
+  reseau
+        fournit les service pour echangerr les partie de donnée sur le reseau
+  liaison
+        decrie les metodes d'changfe de trame
+  physique
+        envoyer des donnée dur le cannal
+
+Modele TCP/IP
+  application
+        represente des donnée pour l'utilisatuer ansi que du codage et un controle du dialogue
+  transport
+        prend en charge la communication entre plusieur peripherique a travers divers reseau
+  internet
+        determine le meilleur chemin a travers le reseau
+  acces reseau
+        controle les peripherique	 materiels et les support qui constituent le reseau
+
+https://quizlet.com/Gaulthier_Gain
