@@ -2,3 +2,16 @@ configuré IP
 
 si on veut atteindre l'adresse 10.0.0.0, on met l'interface ou elle doit passer
   exemple, ip route 10.0.0.0 255.255.255.0 serial 0/3/0
+-------------------------------------------------------------
+
+route par defaut :
+
+sur chaque routeur suivant le chemin vers internet :
+>ip route 0.0.0.0 0.0.0.0 "l'interface (serial 0/2/0)"
+
+pour le retour :
+>ip route 10.0.0.0 255.255.255.248 "l'interface (serial 0/2/0)"
+
+((((10.0.0.0 étant l'addresse de celui qu'a fait la requete 'ping'))))
+
+-------------------------------------------------------------
