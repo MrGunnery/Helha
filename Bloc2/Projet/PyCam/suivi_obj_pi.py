@@ -26,11 +26,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
          image = frame.array
          # convertir l'image en gris
          hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-         
+
          mask = cv2.inRange(hsv, colorLower, colorUpper)
          mask = cv2.erode(mask, None, iterations=2)
          mask = cv2.dilate(mask, None, iterations=2)
-    
+
          # find contours in the mask and initialize the current
          # (x, y) center of the ball
          cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
@@ -49,6 +49,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
          # affiche les differentes frames
          cv2.imshow("Fraeme", image)
+         cv2.imshow("hsv", hsv)
          key = cv2.waitKey(1) & 0xFF
 
          # Ferme les frame
