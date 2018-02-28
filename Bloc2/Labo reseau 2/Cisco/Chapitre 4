@@ -1,0 +1,29 @@
+Le processus subi par les données, du nœud source au nœud de destination, est le suivant :
+
+Les données utilisateur sont segmentées par la couche transport, placées dans des paquets par la couche réseau, puis encapsulées sous forme de trames par la couche liaison de données.
+La couche physique code les trames et crée les signaux électriques, optiques ou ondulatoires (radio) qui représentent les bits dans chaque trame.
+Ces signaux sont alors envoyés individuellement sur le support.
+La couche physique du nœud de destination récupère ces signaux individuels sur les supports, les convertit en représentations binaires et transmet les bits à la couche liaison de données sous forme de trame complète.
+
+Les principaux types de câbles obtenus en utilisant des conventions de câblage spécifiques sont les suivants :
+
+Câble Ethernet droit : type de câble réseau le plus courant. Il est généralement utilisé pour connecter un hôte à un commutateur et un commutateur à un routeur.
+Câble Ethernet croisé : câble peu utilisé permettant de relier des périphériques similaires. Par exemple, pour connecter un commutateur à un commutateur, un hôte à un autre hôte ou un routeur à un routeur.
+Câble inversé : câble propriétaire Cisco permettant d'établir une connexion avec un routeur ou un port de console de commutateur.
+
+La couche liaison de données du modèle OSI (couche 2), comme illustré à la figure 1, a pour rôle :
+
+de permettre aux couches supérieures d'accéder aux supports.
+d'accepter les paquets de couche 3 et de les encapsuler dans des trames.
+de préparer les données du réseau pour le réseau physique.
+de contrôler la manière dont les données sont placées et reçues sur le support.
+d'échanger des trames entre les nœuds via le support d'un réseau physique, comme un câble UTP ou à fibre optique.
+de recevoir et d'acheminer les paquets vers un protocole de couche supérieure.
+de détecter les erreurs.
+
+À chaque tronçon le long du chemin, un routeur :
+
+accepte une trame d'un support.
+désencapsule la trame.
+réencapsule le paquet dans une nouvelle trame.
+achemine la nouvelle trame appropriée jusqu'au support de ce segment du réseau physique.
