@@ -1,86 +1,86 @@
-enp0s8 > carte interne
-enp0s3 > carte en bridge
-Nom du serveur 'srv'
-Nom du domaine 'helha1'
-Nom du root 'root'
-Nom du client windows 7 'client-PC'
+>hostnamectl set-hostname srvcentos			(nom du serveur "srvcentos"
+>reboot
 
----Install completion---
+>yum -y install bash-completion bash-completion-extras	(Auto-Completion
+>reboot
 
-yum -y install bash-completion bash-completion-extrat
+>yum install vim-enhanced				(couleur sur editeur de texte
+>alias vi=vim
 
----renommée la machine---
+>vi /etc/selinux/config				(disable secu linux OBLIGATOIRE
+>>>>>
+>SELINUX=disabled					(modifier
 
-hostnamectl set-hostname srv
-reboot
+>vi /etc/sysconfig/network-scripts/ifcfg-enp0s3	(parametre enp0s3
+>>>>>	
+		ONBOOT=yes
 
----Configuration carte réseau---
+>vi /etc/sysconfig/network-scripts/ifcfg-enp0s8	(parametre enp0s8
+>>>>>	
+		BOOTPROTO=static
+		ONBOOT=yes
+		IPADDR=192.168.10.1
+		NETMASK=255.255.255.0
+		
+>systemctl restart network
 
-vi /etc/sysconfig/network-scripts/ifcfg-enp0s3
-	ON BOOT = yes (si pas déjà fait)
-vi /etc/sysconfig/network-scripts/ifcfg-enp0s8
-	BOOTPROTO=no (ou static)
-	ON BOOT = yes
-	IPADDR = 192.168.10.1
-	PREFIX = 24
-	(ou NETMASK = 255.255.255.0)
 
-service network restart
-	(ou systemctl restart network)
+>yum install dhcp
 
----Installation de vim---(optionnel)
+>vi /etc/dhcp/dhcpd.conf			(copier le fichier indiqué)
 
-Yum install vim
-sy
+>cp /usr...../dhcp-4.2.5/dhcpd.config.example /etc/dhcp/dhcpd.conf
 
----DHCP---
+>vi /etc/dhcp/dhcpd.conf			(editer le fichier
+>>>>>	
+		(effacer tout ce qu'il y a après verybasicsubnet...)
+		>50dd
+		
+		>option domain-name "isat.lan";				(nom du dhcp
+		>option domain-name-servers 8.8.8.8;			(dns
+		
+		>ddns-update-style none;				[retirer le #
+		>authoritative;					[retirer le #
+		
+		(effacer 'no service will be given on this sub....)
+		
+		>subnet 192.168.10.0 netmask 255.255.255.0
+		>range 192.168.10.10 192.168.10.100
+		>option routers 192.168.10.1
+		
+>systemctl enable dhcpd						(boot auto
+>systemctl restart dhcpd
 
-yum install -y dhcp
-vi /etc/dhcp/dhcpd.conf
-	subnet 192.168.10.0 netmask 255.255.255.0 {
-	range 192.168.10.100 192.168.10.200;
-	option routers 192.168.10.1;
-	option domain-name-servers 8.8.8.8;}
-systemctl restart dhcpd
-systemctl enable dhcpd (pour garder le service au re-démarrage)
+>yum install iptables-services
+>systemctl enable iptables
 
-Vérifier sur machine hôte si le serveur dhcp fonctionne
+>iptables --flush							(Firewall ?
+>service iptables save						(Firewall ?
 
----Nat---
+>iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE			(instruction du nat
+>service iptables save						(boot auto
 
-yum install -y iptables-services
-systemctl enable iptables
+>vi /etc/sysctl.conf							(copier le fichier indiqué)
+>cp /usr...../sysctl.d/50-default.conf /etc/sysctl.conf
 
-vi /etc/sysctl.conf
-	net.ipv4.ip_forward = 1
-vi /etc/selinux/config
-	disabled
-sysctl - p
+>vi /etc/sysctl.conf
+>>>>>	
+		net.ipv4.ip_forward = 1				(ajouter
+		
+systemctl enable iptables						(boot auto
+service iptables save							(boot auto
 
-iptables --flush
+>reboot
+>car /proc/sys/net/ipv4/ip_forward 	**facultatif			(verifier si ip_forward est égal à 1
 
-firewall-cmd --permanent --direct --passthrough ipv4 -t nat -I POSTROUTING -o eth0 -j MASQUERADE -s 10.0.0.0/24
-firewall-cmd --reload
-OU
-iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
-systemctl enable iptables
+>yum install samba
 
-service iptables save
+>groupadd students
+>groupadd machines
 
-reboot
-
-Vérifier sur la machine hôte si elle a bien accès à internet
-
----Samba---
-
-yum -y install samba
-
-groupadd students
-groupadd machines
-
-adduser student1 --group students
-adduser student2 --group students
-useradd client-PC$ -g machines -s /bin/false -d /dev/null
+>adduser student1 -g students
+>adduser student2 -g students
+>useradd client-PC$ -g machines -s /bin/false -d /dev/null
 
 smbpasswd -a -m client-PC$
 smbpasswd -a student1
@@ -90,47 +90,52 @@ smbpasswd -a student2
 smbpasswd -a root
 	mdp : pass
 
-vi /etc/samba/smb.conf == > https://www.unixmen.com/setting-samba-primary-domain-controller-centos-7/
+vi /etc/samba/smb.conf 						(copier le fichier du même dossier)
+>cp /etc/samba/smb.conf.example  /etc/samba/smb.conf 
 
+vi /etc/samba/smb.conf 
+>>>>>	
+		>workgroup = isat 				(modifer
+		>admin users = root				(ajouter
+		
+		>domain master = yes 			(retirer ;
+		>domain logons = yes 			(retirer ;
+		>logon script = start.bat			(retirer ; (modifier
+		>logon path = \\%L\Profiles\%U		(retier ; (mettre %u en majuscule
+		
+		>local master = yes 				(retirer ; (modifer
+		>prefered master = yes 			(retirer ;
+		
+		
+		[netlogon]					(tout décommenter
+		>path = /netlogon				(modifier
+		
+		[Profiles]					(tout décommenter
+		>path = /profiles				(modifier
+		>writable = yes				(ajouter
+		
+		[profiles.V2]				(ajouter
+		>copy = Profiles				(ajouter
+		
+		[public]					(tout décommenter
+		>path = /home/public			(public = nom du dossier commun (modifier
+		>writable = yes				(modifer
+		>printable & write list ->>>> EFFACER
 
+>systemctl restart smb
+>systemctl restart nmb
+>systemctl enable smb
+>systemctl enable nmb
 
-	[global]
-	admin users = root
-	workgroup = helha1
-	logon path = \\%N\profiles\%U
-	logon home = \\%N\%U
-	logon script = start.bat
-	domain master = yes
-
-	[netlogon]
-	path = /netlogon
-	read only = yes
-	create mask = 0600
-	directory mask = 0700
-
-	[profiles]
-	path = /profiles
-	read only = no
-	create mask = 0600
-	directory mask = 0700
-
-	[profiles.V2]
-	copy = profiles
-
-	[docs]
-	path = /home/docs
-	read only = no
-	create mask = 0777
-	directory mask = 0777
-
-mkdir /profiles
-mkdir /profiles/profiles1
-mkdir /profiles/profiles1.V2
-mkdir /profiles/profiles2
-mkdir /profiles/profiles2.V2
-mkdir /profiles/root
 mkdir /netlogon
 mkdir /home/docs
+mkdir /profiles
+mkdir /profiles/student1
+mkdir /profiles/student1.V2
+mkdir /profiles/student2
+mkdir /profiles/student2.V2
+mkdir /profiles/root
+
 
 cd /profiles
 chmod 700 student1
@@ -141,32 +146,33 @@ chmod 700 root
 
 chown student1:students student1
 chown student1:students student1.V2
+chown student2:students student2
+chown student2:students student2.V2	
 chown root:root root
-chown student2:students student2.V2
-chown student2:students student2rebo
 
-cd /
-chmod 755 netlogon
-chmod 777 home/docs
+chmod 755 /netlogon
+chmod 777 /home/docs
+
+=-=--=-=-=-=--=-=-WINDOWS 7=-=--=-=-=-=--=-=-
 
 CONNECT CLIENT WINDOWS 7
 search => regedit => HKEY_local_machine > system > currentControlSet > services > Lanman Workstation > Paramaters
-	créer DWord 32 bits
+	créer DWord 32 bits 
 		DNSNameResolutionRequired > 0
 	créer DWord 32 bits
 		DomainCompatibilityMode > 1
 
-changer domaine => helha1
+changer domaine => isat
 redémarrer
 connecter avec student1 (mdp : pass)
 
 dans Z:\ => créer start.bat => net use w: \\srv\docs
 
-DANS CENTOS
-mv /home/student1/start.bat /netlogon/
-chmod 755 /netlogon/start.bat
+=-=--=-=-=-=--=-=-CENT OS=-=--=-=-=-=--=-=-
 
-VERIFIER W:\ SUR WINDOWS PUIS DECONNECTER
+>mv /home/student1/start.bat /netlogon/
+>chmod 755 /netlogon/start.bat	
 
-DANS CENTOS
-mv /profiles/student1.V2/NTUSER.DAT /profiles/student1.V2/NTUSER.MAN
+------> VERIFIER W:\ SUR WINDOWS PUIS DECONNECTER
+
+>mv /profiles/student1.V2/NTUSER.DAT /profiles/student1.V2/NTUSER.MAN
