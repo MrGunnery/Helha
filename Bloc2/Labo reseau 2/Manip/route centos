@@ -1,0 +1,35 @@
+NAT :
+>yum install iptables-services
+>systemctl enable iptables
+
+>iptables --flush							(Firewall ?
+>service iptables save						(Firewall ?
+
+>iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE			(instruction du nat
+>service iptables save						(boot auto
+
+>vi /etc/sysctl.conf							(copier le fichier indiqué)
+>cp /usr...../sysctl.d/50-default.conf /etc/sysctl.conf
+
+>vi /etc/sysctl.conf
+>>>>>
+		net.ipv4.ip_forward = 1				(ajouter
+
+systemctl enable iptables						(boot auto
+service iptables save							(boot auto
+
+>reboot
+>car /proc/sys/net/ipv4/ip_forward 	**facultatif			(verifier si ip_forward est égal à 1
+
+--------------------------------------------------------------------------------
+
+Routeur à côté du NAT :
+Adresse du NAT (enp0s10): 192.168.13.1
+Adresse du routeur : 192.168.13.2
+
+temporaire :
+>ip route add default via 192.168.13.1      (On mets l'interface d'entrée du prochain saut, pas celle de sortie !)
+
+static :
+vi /etc/sysconfig/network-script/route-enp0s10
+>0.0.0.0/24 via 192.168.13.1                (On mets l'interface d'entrée du prochain saut, pas celle de sortie !)
