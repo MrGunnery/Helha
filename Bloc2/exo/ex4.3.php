@@ -13,7 +13,7 @@
 		</select>
 		<input type="submit" value="Choisir">
 	</form>
-	
+
 
 	<?php 
 		$nbr_coca = 10;
