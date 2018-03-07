@@ -1,5 +1,0 @@
-Exercice 2 : Considérons $a = 3, $b = 9, $c = FAUX, $d = !($c), $e = 9.
-N° Exercice Résultat
-1 $a != 3 => 0
-2 !($d) || $c => 0
-3 (($a + $b) == 12) && $d => 1
