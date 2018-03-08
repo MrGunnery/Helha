@@ -11,7 +11,9 @@
 		// echo "Hello world<br>";
 		// echo date('d/m/Y H:i:s');
 
-	phpinfo;
+		$a = 5;
+		echo "A = $a";
+		echo "A = ". $a;
 
 	 ?>	
 </body>
