@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
-<html align="center">
+<html>
 <head>
-    <meta charset="utf-8" />
-    <title>Table de multiplication</title>
+	<title>ex5.4</title>
+	<meta charset="utf-8">
 </head>
-<body >
-	<table border="1" width="800" align="center" style="font-size: 20px" >
+<body>
+<table border="1" width="800" align="center" style="font-size: 20px" >
 		<caption style="font-size: 40px; font-style: italic;">Table de multiplication</caption>
 		<?php
 			$NbrCol 	= 10; // nombre de colonnes
@@ -27,7 +26,7 @@
 			<?php	
 				// for ($j=1; $j<=$NbrCol; $j++){ 
 				$j=1;
-				while ( $j<= $NbrCol) {
+				do{
 				 	# code...	 
 			?>
 			<td style="background:#FFFF66; ">
@@ -37,7 +36,7 @@
 			</td>
 			<?php
 				$j+=1;	
-				}
+				}while ( $j<= $NbrCol); 
 			?>
 			</th>
 		</thead>
@@ -46,14 +45,14 @@
 				// lignes suivantes
 				// for ($i=1; $i<=$NbrLigne; $i++) {
 				$i=1;
-				while ( $i<= $NbrLigne) {
+				do{
 				 	# code... 
 			?>
 			<tr>
 			<?php	
 				// for ($j=1; $j<=$NbrCol; $j++) {
 				
-				while ( $k<= $NbrCol) {
+				do{
 					# code...
 				
 					// 1ere colonne (colonne 0)
@@ -85,13 +84,13 @@
 			</td>
 			<?php
 				$k+=1;	
-				} 
+				}while ( $k<= $NbrCol); 
 			?>
 			</tr>
 			<?php	
 				$k=1;
 				$i+=1;
-				}
+				}while ( $i<= $NbrLigne);
 			?>
 		</tbody>
 	</table>

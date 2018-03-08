@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ex5.1</title>
+	<title>ex5.3</title>
 	<meta charset="utf-8">
 </head>
 <body>
 	<?php 
 		$i=0;
-		while ($i <= 10) {
+		do {
 			# code...
 	?>
 	<p style="font-size: 20px">
 		<?php 
 			echo ($i."x2=".($i*2));
-			$i+=1;
 		 ?>
 	</p>
 	<?php 
-		}	
+		$i+=1;
+		} while ( $i<= 10);
 	 ?>
+		
 </body>
 </html>
-
-

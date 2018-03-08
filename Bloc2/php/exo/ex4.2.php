@@ -12,7 +12,7 @@
 		<input type="radio" name="Pret" value="non">
 		<label for="non">Non</label><br>
 		<input type="submit">
-
+		
 		<?php 
 		if (isset($_POST["Pret"])) {
 			# code...

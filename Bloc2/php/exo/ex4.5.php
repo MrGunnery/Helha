@@ -6,32 +6,36 @@
 </head>
 <body align="center">
 	<h1>Ex 4.5</h1>
-	<form action="ex4.5.php" method="post">
+	<form action="ex4.5.php" method="post" style="font-size:20px;">
 		<label for="resultat">Quel est le resultat? </label>
-		<input type="numbre" name="resultat"><br>
+		<input type="numbre" name="resultat" value="<?php if (isset($_POST['resultat'])){echo $_POST['resultat'];} ?>">
+		<input type="submit" style="border-style: double;"><br>
 		<?php 
 			if (isset($_POST['resultat'])) {
 				# code...
 				$resultat = $_POST['resultat'];
-				if ($resultat<10) {
+				if (0<=$resultat and $resultat<10) {
 					# code...
-					echo '<p style="color:#000000;"> I</p>';
+					echo '<p style="color:#F60000;"> I</p>';
 				}
 				elseif (10<=$resultat and $resultat<=12) {
 					# code...
-					echo '<p style="color:#154000;"> S</p>';
+					echo '<p style="color:#F68B00;"> S</p>';
 				}
 				elseif (13<=$resultat and $resultat<=15) {
 					# code...
-					echo '<p style="color:#277202;"> B</p>';
+					echo '<p style="color:#F6EE00;"> B</p>';
 				}
 				elseif (16<=$resultat and $resultat<=18) {
 					# code...
-					echo '<p style="color:#3BAD03;"> TB</p>';
+					echo '<p style="color:#91F600;"> TB</p>';
 				}
 				elseif (19<=$resultat and $resultat<=20) {
 					# code...
-					echo '<p style="color:#54FF00;font-size:36px"> Exelent</p>';
+					echo '<p style="color:#0EF600;font-size:36px">Super</p>';
+				}
+				else{
+					echo '<p style="color:#002EF6;font-size:36px">Entrée une nombre entre 0 et 20!!! </p>';
 				}
 				
 			}

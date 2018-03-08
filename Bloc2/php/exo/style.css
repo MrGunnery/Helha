@@ -1,0 +1,89 @@
+/*
+kCalendrier v0.1
+Fichier : style.css
+Auteur : kik.s
+Date de création : 21/02/09
+Dernière modification : 01/06/11
+*/
+
+body
+{
+	font-size: 0.6em;
+	background-color: #FFFFFB;
+}
+
+#calendar
+{
+	margin: auto;
+	height: 120px;
+	width: 600px;
+	text-align: center;
+}
+
+#calendar table
+{
+	border: medium solid #8F92FF;
+	border-collapse: collapse;
+	text-align: center;
+	background: #FFFFFF;
+	border-spacing: 1px;
+	margin: auto;
+}
+
+#calendar th
+{
+	border: thin solid #8F92FF;
+	border-spacing: 1px;
+	margin: auto;
+}
+
+#calendar td
+{
+	width: 15px;
+	border: thin solid #8F92FF;
+	border-spacing: 1px;
+	margin: auto;
+}
+
+#calendar a
+{
+	text-decoration: none;
+}
+
+#calendar  a:hover
+{
+	text-decoration: underline;
+	color: red;
+}
+
+#calendar .today
+{
+	font-weight: bold;
+	color: white;
+	background: #8F92FF;
+}
+
+#calendar .otherday
+{
+	background: #FFFFFF;
+}
+
+#calendar .vacation
+{
+	background: #BD7FED;
+}
+
+#calendar .holiday
+{
+	background: #ED7F7F;
+}
+
+#calendar .eday
+{
+	background: #8AF18A;
+}
+
+#calendar .noday
+{
+	background: #EEEEEE;
+}
