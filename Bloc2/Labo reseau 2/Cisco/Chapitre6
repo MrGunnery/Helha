@@ -1,0 +1,26 @@
+La couche réseau, ou couche 3 du modèle OSI, fournit des services permettant aux périphériques finaux d'échanger des données sur 
+le réseau. Pour effectuer ce transport de bout en bout, la couche réseau utilise quatre processus de base :
+    L'adressage des périphériques finaux : une adresse IP unique doit être configurée sur les périphériques finaux pour les 
+    identifier sur le réseau.
+    L'encapsulation : la couche réseau encapsule l'unité de données de protocole (PDU) de la couche transport dans un paquet. 
+    Le processus d'encapsulation ajoute des informations d'en-tête IP, telles que l'adresse IP des hôtes source (expéditeurs) et 
+    de destination (destinataires).
+    Le routage : la couche réseau fournit des services permettant de diriger les paquets vers un hôte de destination sur un autre 
+    réseau. Pour voyager vers d'autres réseaux, le paquet doit être traité par un routeur. Le rôle du routeur est de sélectionner 
+    le meilleur chemin et de diriger les paquets vers l'hôte de destination. Ce processus est appelé le routage. Un paquet peut 
+    passer par de nombreux périphériques intermédiaires avant d'atteindre l'hôte de destination. Chaque routeur que traverse 
+    le paquet pour atteindre l'hôte de destination est appelé un tronçon.
+    La désencapsulation : lorsque le paquet arrive au niveau de la couche réseau de l'hôte de destination, l'hôte vérifie 
+    l'en-tête IP du paquet. Si l'adresse IP de destination dans l'en-tête correspond à l'adresse IP de l'hôte qui effectue 
+    la vérification, l'en-tête IP est supprimé du paquet. Une fois la désencapsulation effectuée par la couche réseau, la PDU 
+    de couche 4 est transmise au service approprié au niveau de la couche transport.
+Contrairement à la couche transport (couche 4 OSI), qui gère le transport des données entre les processus s'exécutant sur chaque 
+hôte, les protocoles de couche réseau spécifient la structure et le traitement des paquets utilisés pour transporter les données 
+d'un hôte à un autre. Un fonctionnement indépendant des données transportées dans chaque paquet permet à la couche réseau 
+d'acheminer des paquets pour plusieurs types de communications entre des hôtes multiples.
+
+
+Le protocole IP est sans connexion, ce qui signifie qu'aucune connexion de bout en bout dédiée n'est créée avant l'envoi 
+des données. Comme le montre la figure 1, l'envoi d'une lettre sans que le destinataire en soit averti illustre bien 
+la communication sans connexion.
+
