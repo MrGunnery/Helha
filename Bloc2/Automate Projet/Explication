@@ -1,0 +1,18 @@
+AUTOMATEIQUE :
+
+- Mode Manuel
+- Mode Automatique
+      ------> Regulation temperature
+                              ------->  TOR + H.
+                              ------->  PID + PWM
+
+SUPERVISION :
+
+- Commande  ON/OFF  --- Courbe + Archive
+            ACK
+
+COMMUNICATION :
+
+S71200 ---- SWITCH -----  SWITCH   ----- SWITCH ------ S71500
+        |                                     |
+HMI ----                                      ----- WINCC Prof
