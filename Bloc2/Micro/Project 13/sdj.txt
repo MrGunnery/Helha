@@ -1,0 +1,8 @@
+A la mise sous tension, éteindre pendant 2 secondes les LED
+
+Allumer les LED les unes après les autres pour créer un effet de défilement. Commencer
+par la LED1 jusque la LED8. Une seule LED est allumée à la fois. Chaque LED doit clignotter un nombre de fois égal à son numéro d'apparition
+
+Lorsque la séquence du défilement est terminée, attendre 2 secondes et recommencer la même séquence dans l'autre sens.
+
+Boucler le programme sur lui-même
