@@ -62,3 +62,49 @@ SRVLX02-01 CentOs ntp
 		+ntp1.jst.mfeed. 172.29.1.100     2 u   29   64    1   18.826   -0.126   0.000
 		+ntp2.jst.mfeed. 172.29.2.50      2 u   28   64    1   21.592    0.018   0.000
 		*ntp3.jst.mfeed. 133.243.236.18   2 u   28   64    1   22.666   -1.033   0.000
+
+R3
+	 yum install bash-completion
+	  >vi /etc/selinux/config				(disable secu linux OBLIGATOIRE
+	>>>>>
+	>SELINUX=disabled					(modifier
+	  >vi /etc/sysctl.conf
+	>>>>>	
+			net.ipv4.ip_forward = 1				(ajouter
+	 sysctl -p
+
+SRVLX03-01	CentOs Postfix
+
+	[root@mail ~]# yum -y install postfix
+	
+	[root@mail ~]# vi /etc/postfix/main.cf
+		# line 75: uncomment and specify hostname
+		myhostname = mail.srv.world
+		# line 83: uncomment and specify domain name
+		mydomain = srv.world
+		# line 99: uncomment
+		myorigin = $mydomain
+		# line 116: change
+		inet_interfaces = all
+		# line 164: add
+		mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+		# line 264: uncomment and specify your local network
+		mynetworks = 127.0.0.0/8, 10.0.0.0/24
+		# line 419: uncomment (use Maildir)
+		home_mailbox = Maildir/
+		# line 574: add
+		smtpd_banner = $myhostname ESMTP
+		# add follows to the end
+		# limit an email size for 10M
+		message_size_limit = 10485760
+		# limit a mailbox for 1G
+		mailbox_size_limit = 1073741824
+		# for SMTP-Auth
+		smtpd_sasl_type = dovecot
+		smtpd_sasl_path = private/auth
+		smtpd_sasl_auth_enable = yes
+		smtpd_sasl_security_options = noanonymous
+		smtpd_sasl_local_domain = $myhostname
+		smtpd_recipient_restrictions = permit_mynetworks,permit_auth_destination,permit_sasl_authenticated,reject
+	[root@mail ~]# systemctl restart postfix 
+	[root@mail ~]# systemctl enable postfix 
