@@ -108,3 +108,86 @@ SRVLX03-01	CentOs Postfix
 		smtpd_recipient_restrictions = permit_mynetworks,permit_auth_destination,permit_sasl_authenticated,reject
 	[root@mail ~]# systemctl restart postfix 
 	[root@mail ~]# systemctl enable postfix 
+
+ 	
+	Install Dovecot to configure POP/IMAP server
+	[1]	Install Dovecot.
+		[root@mail ~]# yum -y install dovecot
+	[2]	This example shows to configure to provide SASL function to Postfix.
+		[root@mail ~]# vi /etc/dovecot/dovecot.conf
+		# line 24: uncomment
+		protocols = imap pop3 lmtp
+		# line 30: uncomment and change ( if not use IPv6 )
+		listen = *
+		[root@mail ~]# vi /etc/dovecot/conf.d/10-auth.conf
+		# line 10: uncomment and change ( allow plain text auth )
+		disable_plaintext_auth = no
+		# line 100: add
+		auth_mechanisms = plain login
+		[root@mail ~]# vi /etc/dovecot/conf.d/10-mail.conf
+		# line 30: uncomment and add
+		mail_location = maildir:~/Maildir
+		[root@mail ~]# vi /etc/dovecot/conf.d/10-master.conf
+		# line 96-98: uncomment and add like follows
+		# Postfix smtp-auth
+		unix_listener /var/spool/postfix/private/auth {
+		    mode = 0666
+		    user = postfix 
+		    group = postfix 
+		}
+		[root@mail ~]# vi /etc/dovecot/conf.d/10-ssl.conf
+		# line 8: change (not require SSL)
+		ssl = no
+		[root@mail ~]# systemctl start dovecot 
+		[root@mail ~]# systemctl enable dovecot 
+
+ 	
+Add Mail User Accounts to use Mail Service.
+This example is for the case you use OS user accounts.
+Configure basic Postfix settings, and basic Dovecot settings first.
+	[1]	To use OS user accounts, that's only adding OS user like follows.
+		# install mail client
+		[root@mail ~]# yum -y install mailx
+		# set environment variables to use Maildir
+		[root@mail ~]# echo 'export MAIL=$HOME/Maildir' >> /etc/profile
+		# add a user [cent]
+		[root@mail ~]# useradd cent 
+		[root@mail ~]# passwd cent 
+	[2]	Login as a user added in [1] and try to send an email.
+		# send to myself [mail (username)@(hostname)]
+		[cent@mail ~]$ mail cent@localhost 
+		# input subject
+		Subject: Test Mail#1
+		# input messages
+		This is the first mail.
+
+		# to finish messages, input period(.) and Enter
+		.
+		EOT
+		# see received emails
+		[cent@mail ~]$ mail 
+		Heirloom Mail version 12.5 7/5/10.  Type ? for help.
+		"/home/cent/Maildir": 1 message 1 new
+		>N  1 cent                  Thu Jun 29 16:49  17/530   "Test Mail#1"
+
+		# input the number you'd like to see an email
+		& 1
+		Message  1:
+		From cent@srv.world Thu Jun 29 19:49:34 2017
+		Return-Path: <cent@srv.world>
+		X-Original-To: cent@localhost
+		Delivered-To: cent@localhost.srv.world
+		Date: Thu, 29 Jun 2017 19:49:33 +0900
+		To: cent@localhost.srv.world
+		Subject: Test Mail#1
+		User-Agent: Heirloom mailx 12.5 7/5/10
+		Content-Type: text/plain; charset=us-ascii
+		From: cent@srv.world (cent)
+		Status: R
+
+		This is the first mail.
+
+		# to quit, input [q]
+		& q
+		Held 1 message in /home/cent/Maildir
+		You have mail in /home/cent/Maildir
