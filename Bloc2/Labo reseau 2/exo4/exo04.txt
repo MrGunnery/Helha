@@ -72,7 +72,34 @@ R3
 	>>>>>	
 			net.ipv4.ip_forward = 1				(ajouter
 	 sysctl -p
+	 
+SRVLX02-02 	Ubuntu rsync
 
+	Configure on destination host.
+		root@www:~# apt-get -y install rsync
+		root@www:~# vi /etc/default/rsync
+			# line 8: change
+			RSYNC_ENABLE=true
+		root@www:~# vi /etc/rsyncd.conf
+			# create new
+			# any name you like
+			[backup]
+			# destination directory to copy
+			path = /home/backup
+			list = true
+			uid = root
+			gid = root
+			read only = false
+		root@www:~# mkdir /home/backup 
+		root@www:~# systemctl start rsync 
+		
+	Configure on source host. (CentOs et Ubuntu)
+		[root@dlp ~]# yum -y install rsync
+	It's OK. Execute rsync on Source Host like follows.
+		[root@dlp ~]# rsync -avz --delete  /root/work/ 10.0.2.3::backup
+			# Add in cron if you'd like to run reguraly
+		[root@dlp ~]# crontab -e
+		
 SRVLX03-01	CentOs Postfix
 
 	[root@mail ~]# yum -y install postfix
@@ -191,3 +218,41 @@ Configure basic Postfix settings, and basic Dovecot settings first.
 		& q
 		Held 1 message in /home/cent/Maildir
 		You have mail in /home/cent/Maildir
+
+SRVLX03-02	Ubuntu proFtp
+		
+	Install ProFTPD to configure FTP server to transfer files.
+	[1]	Install ProFTPD.
+		root@www:~# apt-get -y install proftpd
+		# select standalone on this example
+		 +-------------------------| ProFTPD configuration |-------------------------+
+		 | ProFTPD can be run either as a service from inetd, or as a standalone     |
+		 | server. Each choice has its own benefits. With only a few FTP             |
+		 | connections per day, it is probably better to run ProFTPD from inetd in   |
+		 | order to save resources.                                                  |
+		 |                                                                           |
+		 | On the other hand, with higher traffic, ProFTPD should run as a           |
+		 | standalone server to avoid spawning a new process for each incoming       |
+		 | connection.                                                               |
+		 |                                                                           |
+		 | Run proftpd:                                                              |
+		 |                                                                           |
+		 |                                from inetd                                 |
+		 |                                standalone                                 |
+		 |                                                                           |
+		 |                                                                           |
+		 |                                  <Ok>                                     |
+		 |                                                                           |
+		 +---------------------------------------------------------------------------+
+
+		root@www:~# vi /etc/proftpd/proftpd.conf
+		# line 11: turn off if not needed
+		UseIPv6 off
+		# line 15: change to your hostname
+		ServerName "www.srv.world"
+		# line 34: uncomment ( specify root directory for chroot )
+		DefaultRoot ~
+		root@www:~# vi /etc/ftpusers		=> utilistateur que l'on veut exclure
+		# add users you prohibit FTP connection
+		test
+		root@www:~# systemctl restart proftpd 
