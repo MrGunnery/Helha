@@ -20,8 +20,67 @@ SRVLX01 Ubuntu Nat/proxy
 	  service networking restart
 
 	  Proxy
-  
-  
+ 	
+	Install Squid and configure Proxy server.
+		[1]	Install Squid.
+			root@prox:~# apt-get -y install squid
+		[2]	This is common forward proxy settings.
+			root@prox:~# vi /etc/squid/squid.conf
+			acl CONNECT method CONNECT
+			# line 989: add (define ACL for internal)
+			acl lan src 10.0.0.0/24
+			http_access allow localhost
+			# line 1188: add (set ACL for internal)
+			http_access allow lan
+			# line 5157: add follows
+			request_header_access Referer deny all
+			request_header_access X-Forwarded-For deny all
+			request_header_access Via deny all
+			request_header_access Cache-Control deny all
+			# line 5511: add hostname
+			visible_hostname prox.srv.world
+			# forwarded_for on
+			# line 7625: add
+			forwarded_for off
+		root@prox:~# systemctl restart squid
+		
+	[1]	Install and Configure SquidGuard.
+		root@prox:~# apt-get -y install squidguard
+		root@prox:~# mv /etc/squidguard/squidGuard.conf /etc/squidguard/squidGuard.conf.bk 
+		root@prox:~# vi /etc/squidguard/squidGuard.conf
+			# create new ( simply settings as an example )
+			dbhome /var/lib/squidguard/db
+			logdir /var/log/squidguard
+			dest deny {
+			    # define 'deny' category for prohibited domain
+			    domainlist deny/domains
+			    # define 'deny' category for prohibited URL
+			    urllist deny/urls
+			}
+			acl {
+			    default {
+				# permit all except 'deny' category
+				pass !deny all
+				# the redirected URL if matchs 'deny'
+				redirect http://www.srv.world/error.html
+			    }
+			}
+		root@prox:~# mkdir /var/lib/squidguard/db/deny 
+		root@prox:~# vi /var/lib/squidguard/db/deny/domains
+			# write domains you'd like to prohibit to access
+			yahoo.co.jp
+			example.com
+		root@prox:~# vi /var/lib/squidguard/db/deny/urls
+			# write URLs you'd like to prohibit to access
+			www.yahoo.co.jp/deny/
+			www.example.com/
+		root@prox:~# squidGuard -C all 
+		root@prox:~# chown -R proxy. /var/lib/squidguard /var/log/squidguard
+		root@prox:~# vi /etc/squid/squid.conf
+			# line 4395: add
+			url_rewrite_program /usr/bin/squidGuard
+		root@prox:~# systemctl restart squid
+
 R1
 	  yum install bash-completion
 	  >vi /etc/selinux/config				(disable secu linux OBLIGATOIRE
