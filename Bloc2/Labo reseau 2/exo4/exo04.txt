@@ -81,7 +81,7 @@ SRVLX01 Ubuntu Nat/proxy
 			url_rewrite_program /usr/bin/squidGuard
 		root@prox:~# systemctl restart squid
 
-R1
+R1 Serveur DNS
 	  yum install bash-completion
 	  >vi /etc/selinux/config				(disable secu linux OBLIGATOIRE
 	>>>>>
@@ -93,6 +93,36 @@ R1
 			net.ipv4.ip_forward = 1				(ajouter
 
 	 sysctl -p
+	  	
+	Install Dnsmasq which is the lightweight DNS forwarder and DHCP Server Software.
+		[1]	Install Dnsmasq.
+			[root@dlp ~]# yum -y install dnsmasq
+		[2]	Configure Dnsmasq.
+			[root@dlp ~]# vi /etc/dnsmasq.conf
+			# line 19: uncomment (never forward plain names)
+			domain-needed
+			# line 21: uncomment (never forward addresses in the non-routed address spaces)
+			bogus-priv
+			# line 41: uncomment (query with each server strictly in the order in resolv.conf)
+			strict-order
+			# line 123: uncomment (add domain name automatically)
+			expand-hosts
+			# line 133: add (define domain name)
+			domain=srv.lan
+			[root@dlp ~]# systemctl start dnsmasq 
+			[root@dlp ~]# systemctl enable dnsmasq 
+		[3]	For DNS records, add them in /etc/hosts.
+			Then, Dnsmasq will answer to queries from clients.
+			[root@dlp ~]# vi /etc/hosts
+			127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+			::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+			# add records
+			10.0.3.2   mail.srv.lan 
+			10.0.2.2   ntp.srv.Lan
+			10.0.2.3   rsync.srv.lan
+			10.0.3.2   ftp.srv.lan
+
+[root@dlp ~]# systemctl restart dnsmasq 
 	 
 SRVLX02-01 CentOs ntp
 	[1]	Install NTPd.
