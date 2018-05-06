@@ -109,11 +109,6 @@ SRVLX02-01 CentOs ntp
 		server 3.centos.pool.ntp.org iburst
 		[root@dlp ~]# systemctl start ntpd 
 		[root@dlp ~]# systemctl enable ntpd 
-	[2]	If Firewalld is running, allow NTP service. NTP uses 123/UDP.
-		[root@dlp ~]# firewall-cmd --add-service=ntp --permanent 
-		success
-		[root@dlp ~]# firewall-cmd --reload 
-		success
 	[3]	Verify it works normally like follows.
 		[root@dlp ~]# ntpq -p    => verification
 		     remote           refid      st t when poll reach   delay   offset  jitter
