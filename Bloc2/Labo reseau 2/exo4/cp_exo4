@@ -1,0 +1,12 @@
+SRVLX01
+      Faire nat + routes
+      intaller squid
+      copier squid.conf dans /etc/squid/squid.conf
+      installer squidguard
+      copier squidguard.conf dans /etc/squidguard.conf
+      creer dossier dans /var/lib/squidguard/db/deny 
+        vi /var/lib/squidguard/db/deny/domains => ajouter les domaine a interdire
+      redemarer squid
+      
+R1
+    installer dnsmasq
