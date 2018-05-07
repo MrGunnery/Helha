@@ -3,9 +3,7 @@ NTP
         yum -y install dnsmasq
         vi /etc/ntp.conf
         		# line 18: add the network range you allow to receive requests
-        		restrict 10.0.1.0 mask 255.255.255.248 nomodify notrap
-        		restrict 10.0.2.0 mask 255.255.255.0 nomodify notrap
-        		restrict 10.0.3.0 mask 255.255.255.0 nomodify notrap
+        		restrict 10.0.1.200 mask 255.255.255.248 nomodify notrap
         systemctl start ntpd
         systemctl enable ntpd
         ntpq -p            (verification

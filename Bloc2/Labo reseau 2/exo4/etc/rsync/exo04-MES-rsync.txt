@@ -1,0 +1,27 @@
+rsync
+
+      [HOST]
+      apt-get -y install rsync
+      vi /etc/default/rsync
+        # line 8: change
+        RSYNC_ENABLE=true
+      cp rsyncd.conf (git) /etc/rsyncd.conf
+      mkdir /home/backup
+  		systemctl start rsync
+      systemctl enable rsync
+
+      [CLIENT LINUX]
+      Configure on source host. (CentOs et Ubuntu)
+      yum -y install rsync
+      rsync -avz --delete  /root/work/ 10.0.2.3::backup   (/root/work est envoyé à /home/backup)
+
+      # Add in cron if you'd like to run reguraly
+      crontab -e
+
+      [CLIENT WINDOWS]
+      installer cwrsync
+      décompresser dans C:/cwrsync
+      ouvir cmd
+      >cd C:\cwRsync\bin
+      >rsync -r -v --size-only --chmod=ugo=rwX "/cygdrive/c/Users/windows/Desktop" "root@10.0.2.4::backup"
+            
