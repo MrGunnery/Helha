@@ -1,0 +1,81 @@
+SRVLX01 Ubuntu Nat/proxy
+
+	  Configuration adresse ip
+
+    sudo su
+	  vi /etc/network/interfaces
+  		auto enp0s8
+  		iface enp0s8 inet static
+  		address 192.168.10.1
+  		netmask 255.255.255.0
+  		up route add -net 'adresse reseau' netmask 'mask' gw 'saut suivant'
+	  service networking restart
+
+	  Activer nat
+
+	  vi /etc/rc.local
+		  echo 1 > /proc/sys/net/ipv4/ip_forward
+		  iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+		  exit 0
+	  /etc/rc.local
+	  service networking restart
+
+    Proxy
+ 	  [Squid INSTALL]
+			apt-get -y install squid
+    [Squid CONF]
+      cp squid.conf (git) /etc/squid/squid.conf     '(Ligne acl lan src .... IP
+    [SquidGuard INSTALL]
+      apt-get -y install squidguard
+    [SquidGuard CONF]
+      cp squidGuard.conf (git) /etc/squidguard/squidGuard.conf
+
+      mkdir /var/lib/squidguard/db/deny
+      vi /var/lib/squidguard/db/deny/domains
+        # write domains you'd like to prohibit to access
+        yahoo.co.jp
+        example.com
+
+      vi /var/lib/squidguard/db/deny/urls
+        # write URLs you'd like to prohibit to access
+        www.yahoo.co.jp/deny/
+        www.example.com/
+
+      squidGuard -C all
+      chown -R proxy. /var/lib/squidguard /var/log/squidguard
+      systemctl restart squid
+===============================================================================
+R1 Serveur DNS
+    [Classico]
+      vi /etc/sysconfig/network-scripts/ifcfg-enp0s8	(parametre enp0s8
+      >>>>>
+      		BOOTPROTO=static
+      		ONBOOT=yes
+      		IPADDR=10.0.0.178
+      		NETMASK=255.255.255.240
+          GATEWAY=10.0.0.177        (avec cette ligne, l'interface devient route par defaut
+          DNS1=8.8.8.8
+      systemctl restart network
+
+      yum install bash-completion
+      vi /etc/selinux/config				(disable secu linux OBLIGATOIRE
+        >>>>>
+        >SELINUX=disabled					(modifier
+      vi /etc/sysconfig/network-script/route-enp0s9
+        >10.0.3.0/24 via 10.0.2.1
+      vi /etc/sysctl.conf
+        >>>>>
+        >net.ipv4.ip_forward = 1				(ajouter
+      sysctl -p
+    [DNS]
+      yum -y install dnsmasq
+      cp dnsmasq.conf (git) /etc/dnsmasq.conf
+                # line 133: add (define domain name)
+                domain=srv.lan
+      vi /etc/hosts
+      >>>>> (ajouter
+          10.0.3.2   mail.srv.lan
+          10.0.2.2   ntp.srv.lan
+          10.0.2.3   rsync.srv.lan
+          10.0.3.2   ftp.srv.lan
+      systemctl restart dnsmasq

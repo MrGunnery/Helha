@@ -1,0 +1,18 @@
+NTP
+
+        yum -y install dnsmasq
+        vi /etc/ntp.conf
+        		# line 18: add the network range you allow to receive requests
+        		restrict 10.0.1.0 mask 255.255.255.248 nomodify notrap
+        		restrict 10.0.2.0 mask 255.255.255.0 nomodify notrap
+        		restrict 10.0.3.0 mask 255.255.255.0 nomodify notrap
+        systemctl start ntpd
+        systemctl enable ntpd
+        ntpq -p            (verification
+        		     remote           refid      st t when poll reach   delay   offset  jitter
+        		==============================================================================
+        		+ntp1.jst.mfeed. 172.29.1.100     2 u   29   64    1   18.826   -0.126   0.000
+        		+ntp2.jst.mfeed. 172.29.2.50      2 u   28   64    1   21.592    0.018   0.000
+        		*ntp3.jst.mfeed. 133.243.236.18   2 u   28   64    1   22.666   -1.033   0.000
+
+R2 même chose que R1 sauf DNS
