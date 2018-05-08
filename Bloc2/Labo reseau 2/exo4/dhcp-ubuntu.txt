@@ -1,0 +1,16 @@
+DHCP UBUNTU
+
+        apt-get -y install isc-dhcp-server
+
+        vi /etc/dhcp/dhcpd.conf
+        	--MODIFIER--
+        	option domain-name "helha1"
+        	option domain-name-servers 8.8.8.8;
+        	--DECOMMENTER--
+        	authoritative
+        	(en dessous de #this is a very basic subnet declaration)
+        	subnet 192.168.10.0 netmask 255.255.255.0 {
+        	range 192.168.10.100 192.168.10.200;
+        	option routers 192.168.10.1;}
+
+        service isc-dhcp-server restart

@@ -1,0 +1,27 @@
+dhcp-centos
+
+            >yum install dhcp
+
+            >vi /etc/dhcp/dhcpd.conf			(copier le fichier indiqué)
+
+            >cp /usr...../dhcp-4.2.5/dhcpd.config.example /etc/dhcp/dhcpd.conf
+
+            >vi /etc/dhcp/dhcpd.conf			(editer le fichier
+            >>>>>
+            		(effacer tout ce qu'il y a après verybasicsubnet...)
+            		>50dd
+
+            		>option domain-name "isat.lan";				(nom du dhcp
+            		>option domain-name-servers 8.8.8.8;			(dns
+
+            		>ddns-update-style none;				[retirer le #
+            		>authoritative;					[retirer le #
+
+            		(effacer 'no service will be given on this sub....)
+
+            		>subnet 192.168.10.0 netmask 255.255.255.0
+            		>range 192.168.10.10 192.168.10.100
+            		>option routers 192.168.10.1
+
+            >systemctl enable dhcpd						(boot auto
+            >systemctl restart dhcpd

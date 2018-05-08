@@ -1,0 +1,12 @@
+ftp
+
+        apt-get update (si le paquet s'installe pas)
+        apt-get -y install proftpd
+        cp proftpd.conf (git) /etc/proftpd/proftpd.conf
+
+        adduser ftpuser
+        systemctl restart proftpd
+
+        [Windows]
+        installer filezila, se connecter
+        dossier = /home/ftpuser/

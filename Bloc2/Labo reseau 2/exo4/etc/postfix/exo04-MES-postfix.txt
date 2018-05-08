@@ -1,0 +1,40 @@
+Postfix
+
+      yum -y install postfix
+      cp main.cf (git) /etc/postfix/main.cf
+      systemctl restart postfix
+      systemctl enable postfix
+
+      [dovecot]
+      yum -y install dovecot
+      cp dovecot.conf (git) /etc/dovecot/dovecot.conf
+      cp 10-auth.conf (git) /etc/dovecot/conf.d/10-auth.conf
+      cp 10-mail.conf (git) /etc/dovecot/conf.d/10-mail.conf
+      cp 10-master.conf (git) /etc/dovecot/conf.d/10-master.conf
+      cp 10-ssl.conf (git) /etc/dovecot/conf.d/10-ssl.conf
+      systemctl start dovecot
+      systemctl enable dovecot
+
+      [mailx]
+      yum -y install mailx
+      echo 'export MAIL=$HOME/Maildir' >> /etc/profile
+    # add a user [cent]
+      useradd cent
+      passwd cent
+      mail cent@localhost
+            # input subject
+        		Subject: Test Mail#1
+        		# input messages
+        		This is the first mail.
+
+        		# to finish messages, input period(.) and Enter
+        		.
+        		EOT
+      cd /home/cent/new (pour voir les mails)
+
+      [Windows]
+      installer thunderbird
+      ajouter un compte de messagerie
+          nom : cent
+          adr : cent@10.0.3.2
+          mdp : tenc
