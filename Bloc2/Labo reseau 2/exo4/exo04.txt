@@ -184,6 +184,11 @@ SRVLX02-02 	Ubuntu rsync
 			# Add in cron if you'd like to run reguraly
 		[root@dlp ~]# crontab -e
 		
+	test win
+		DeltaC.exe
+		Donnez un nom au profil dans la zone « Profil Name », indiquez l'adresse IP ou le nom d'hôte du serveur RSync dans « Serveur IP/Hostname ». Le répertoire virtuel RSync et le nom inscrit entre crochets dans le fichier de configuration du serveur RSync.
+Une fois le profil créée, il faut indiquer les répertoires à copier, pour cela, sélectionnez un profil et cliquez sur le bouton « Add Folder » ou « Add Files » selon que vous souhaitez copier un répertoire ou un fichier,
+Une fois tout cela réglé, faite un test de votre profil avec des données ne présentant aucun risque au cas où vous les perdriez, pour cela, cliquez-droit sur les profil à testes et choisissez « Run Now…». Une fois que la copie s'effectue de façon satisfaisante, vous pouvez ajouter des fichiers et répertoires plus critiques.
 SRVLX03-01	CentOs Postfix
 
 	[root@mail ~]# yum -y install postfix
