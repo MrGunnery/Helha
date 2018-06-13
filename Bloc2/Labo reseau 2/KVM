@@ -1,0 +1,3 @@
+Connection distante a un Vm 
+
+virt-viewer --connect qemu+ssh://root@192.168.1.155/system win7
