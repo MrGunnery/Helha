@@ -1,3 +1,19 @@
 Connection distante a un Vm 
 
-virt-viewer --connect qemu+ssh://root@192.168.1.155/system win7
+virt-viewer --connect qemu+ssh://root@192.168.1.155/system win7 => win7 = machine sur laquel on veut se conecter
+
+Connection distante a une VM en full-screen avec interdiction de quitter
+
+virt-viewer -k --kiosk-quit on-disconnect --connect qemu+ssh://root@192.168.1.155/system win7
+
+
+Connection a KVM distant
+
+virsh -c qemu+ssh://root@192.168.1.155/system
+        Pour lister les vms
+            list --all
+        Pour demarer une vm
+            start 'nom de la vm'
+        Pour quitter
+            quit
+            
