@@ -23,7 +23,7 @@ void loop(){
 void inverse(){
 	etat++;
 }
-
+r
 void boucle(){
 	for (int var = 0; var <= 3; var++) {
 		digitalWrite(led[var], 0);
