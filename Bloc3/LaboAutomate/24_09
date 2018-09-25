@@ -1,0 +1,30 @@
+Labo automate Globale data (en cours de route)
+
+Step7 4 automates configurer sur le reseau, avec 3 adresse differentes
+
+Definition des données Globale
+  Une fois dans l'onglet
+    Clique droit choisr la cpu
+      repeter ca pour les 4 cpu
+      CPU 1 emet mw10
+        Clique droit emetre
+      CPU 2 meme ligne mw224
+        Clique droit recepteur
+      Repeter le meme pour les autres cpu
+
+      CPU 2 MD40:10 emeteur
+      CPU 1 MW12:20 recepteur
+      CPU 3 DB1.DBW0:20 recepteur
+      CPU 4 MB64:40 recepteur
+
+          =>  essayer de compiler
+              erreur
+                  trop de données emise
+                  il faut reduire le nombre de données que l'on veut emetre
+                  Il y a donc un taille d'emission maximum
+      Diviser les valeur par 2 (apres les : )
+
+      Refaire la meme ligne  ( les 10 reel seront envoyer en deux fois)
+      Compilation complete
+          Normalement tous est OK
+h         
