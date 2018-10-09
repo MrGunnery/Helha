@@ -1,0 +1,16 @@
+Creer projet :
+	# composer create-project symfony/framework-standard-edition helhach2 3.4.*
+
+Generate bundle :
+	# php bin/console generate:bundle
+	
+Generate DB :
+	# php bin/console doctrine:database:create
+
+	# php bin/console doctrine:generate:entity
+	
+	# php bin/console doctrine:schema:update --force
+
+Security :
+	# composer require friendsofsymfony/user-bundle "2.0"
+
