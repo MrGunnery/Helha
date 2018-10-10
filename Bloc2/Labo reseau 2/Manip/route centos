@@ -34,3 +34,4 @@ temporaire :
 static :
 vi /etc/sysconfig/network-script/route-enp0s10
 >0.0.0.0/24 via 192.168.13.1                (On mets l'interface d'entrée du prochain saut, pas celle de sortie !)
+>default via 192.168.13.1 dev enp0s10
