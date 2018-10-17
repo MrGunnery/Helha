@@ -17,6 +17,6 @@ dhcpd.conf
 
 '( pour que la machine ait le hostname FIX, le /etc/hostname doit être vide dans le client
 
-   use-host-decl-names on;                          '( pour que la machine ait le hostname 
+   use-host-decl-names on;                          '( pour que la machine ait le hostname h2
                                                        directe au début (ex : host h2 { ...... })
 
