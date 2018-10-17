@@ -3,11 +3,18 @@ Exercice 1 :
 
 dhcpd.conf 
 
+
+
 '( ip static pour un client
 
-    host FIX {
+    host h2 {
     hardware ethernet 00:1F:6A:21:71:3F;
     fixed-address 10.0.0.101;
+    default-lease-time 28800;                       '( temps du bail par défaut en sec
+    max-lease-time 43200;                           '( temps du bail maximum en sec
+    option host-name "FIX";
     }
 
-'( pour que la machine ait le hostname fix, le /etc/hostname doit être vide dans le client
+'( pour que la machine ait le hostname FIX, le /etc/hostname doit être vide dans le client
+
+
