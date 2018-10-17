@@ -1,9 +1,13 @@
 DHCP :
 Exercice 1 :
 
-dhcpd.conf '( ip static pour une machine avec 
+dhcpd.conf 
 
-    host Accountant {
+'( ip static pour un client
+
+    host FIX {
     hardware ethernet 00:1F:6A:21:71:3F;
     fixed-address 10.0.0.101;
     }
+
+'( pour que la machine ait le hostname fix, le /etc/hostname doit être vide dans le client
