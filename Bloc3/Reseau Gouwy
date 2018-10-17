@@ -1,0 +1,9 @@
+DHCP :
+Exercice 1 :
+
+dhcpd.conf '( ip static pour une machine avec 
+
+    host Accountant {
+    hardware ethernet 00:1F:6A:21:71:3F;
+    fixed-address 10.0.0.101;
+    }
