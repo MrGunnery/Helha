@@ -1,0 +1,49 @@
+creation de projet
+  composer create-project symfony/framework-stadar-edition Esync 3.4.*
+
+Supresion de bundle
+  dans routing
+    vire app
+  dans service
+    Commenter appBundle
+  dans config
+    ajouter
+      templetin:
+        engine: "twing"
+
+  Dans src
+    delete bundle
+
+Creer nouveau bundle
+  php /bin/console create bundle
+  dans composer
+    changer le bundle dans autoload
+
+Ajouter le serveur web dans le racourcis
+
+Creer ou modifier une vue de base
+  avec tous les block utile
+Creer un index
+
+Ajouter un dossier dans web bootstrap
+  ajouter css
+Faire lien dans la base
+  et modifier pour que ce soit joli
+Modifier index.html
+  ajouter un warning (aller voir class bootstrap)
+
+Ajout de fonction dans le Controller
+
+  public function portailAction(){
+    return $this->rendre()
+  }
+Creation d'une vue portail
+  etendre la base
+  modifier le block body
+    Creation d'un tableau avec un tableau
+
+Creation de route dans le fichier routing.yml
+
+Modification de la vue portail
+  ajouter script datatable
+  
