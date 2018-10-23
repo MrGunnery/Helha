@@ -23,6 +23,7 @@ dhcpd.conf
 Exercice 2 :
 --->
     '( les temps du bail en global
+    
     default-lease-time 28800;                       '( temps du bail par défaut en sec
     max-lease-time 43200;                           '( temps du bail maximum en sec
     
