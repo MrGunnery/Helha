@@ -1,6 +1,6 @@
 fichier dhcp coter serveur /etc/dhcp/dhcpd.conf
 
-  subnet 192.168.70.0 netmask 255.255.255.0{
+  subnet 192.168.70.0 netmask 255.255.255.0{    => Obligatoir meme si il ne sert a rien
   }
   
   subnet 192.168.60.0 netmask 255.255.255.0{
@@ -8,7 +8,7 @@ fichier dhcp coter serveur /etc/dhcp/dhcpd.conf
       option subnet-mask 255.255.255.0;
       option routers 192.168.60.1;
       default-lease-time 600;
-      allow-unknown-clients;
+      allow-unknown-clients;         => facultatif
   }
   
 Coter relay
