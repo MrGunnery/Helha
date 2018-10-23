@@ -1,0 +1,35 @@
+fichier dhcp coter serveur
+
+  subnet 192.168.70.0 netmask 255.255.255.0{
+  }
+  
+  subnet 192.168.60.0 netmask 255.255.255.0{
+      range 192.168.60.10 192.168.60.200;
+      option subnet-mask 255.255.255.0;
+      option routers 192.168.60.1;
+      allow-unknown-clients;
+  }
+  
+Coter relay
+10.3.1. Configurer dhcrelay en tant qu'agent de relais DHCPv4 et BOOTP
+Pour exécuter dhcrelay en mode DHCPv4 et BOOTP, spécifier les serveurs dans lesquels vous souhaitez envoyer les demandes. Copier et éditer le fichier dhcrelay.service en tant qu'utilisateur root :
+
+~]# cp /lib/systemd/system/dhcrelay.service /etc/systemd/system/
+~]# vi /etc/systemd/system/dhcrelay.service
+
+Modifiez l'option ExecStart sous la section [Service] et ajouter une ou plusieurs adresses IPv4 de serveur à la fin de la ligne, par exemple :
+
+ExecStart=/usr/sbin/dhcrelay -d --no-pid 192.168.1.1
+
+Si vous souhaitez également spécifier des interfaces où l'agent de relais DHCP écoute les requêtes DHCP, ajoutez-les à l'option ExecStart avec l'argument -i (sinon, il écoutera toutes les interfaces), par exemple :
+
+ExecStart=/usr/sbin/dhcrelay -d --no-pid 192.168.1.1 -i em1
+
+. Pour les autres options, consulter la page man dhcrelay(8).
+Pour activer les changements, en tant qu'utilisateur root, démarrez le service à nouveau :
+
+~]# systemctl --system daemon-reload
+~]# systemctl restart dhcrelay
+
+Liens
+https://access.redhat.com/documentation/fr-fr/red_hat_enterprise_linux/7/html/networking_guide/dhcp-relay-agent
