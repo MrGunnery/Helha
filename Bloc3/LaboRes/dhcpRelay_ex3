@@ -1,4 +1,4 @@
-fichier dhcp coter serveur
+fichier dhcp coter serveur /etc/dhcp/dhcpd.conf
 
   subnet 192.168.70.0 netmask 255.255.255.0{
   }
@@ -7,6 +7,7 @@ fichier dhcp coter serveur
       range 192.168.60.10 192.168.60.200;
       option subnet-mask 255.255.255.0;
       option routers 192.168.60.1;
+      default-lease-time 600;
       allow-unknown-clients;
   }
   
@@ -33,3 +34,4 @@ Pour activer les changements, en tant qu'utilisateur root, démarrez le service 
 
 Liens
 https://access.redhat.com/documentation/fr-fr/red_hat_enterprise_linux/7/html/networking_guide/dhcp-relay-agent
+http://www.premont.fr/tutos/dhcp_relais.pdf
