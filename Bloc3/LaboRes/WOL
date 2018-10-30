@@ -1,0 +1,5 @@
+meme reseau
+  wakeonlan 00:1d:09:6b:05:58 // wakeonlan -i 192.168.1.255 00:1d:09:6b:05:58
+
+reseau public
+  wakeonlan -i 78.yyy.xxx.zzz 00:1d:09:6b:05:58
