@@ -2,8 +2,11 @@
 
 - regenerer les clés car elles sont identique à cause du clonage.
   $ rm -f /etc/ssh/ssh_host*
-  $ systemctl restart sshd
-
+  $ systemctl restart sshd => de maniere PRIMITIVE
+  $ ssh-keygen -t rsa -N '' -f /etc/ssh/ssh_host_rsa_key => de maniere MIEUX (pas d'interuption de service)
+  $ ssh-keygen -t ecdsa -N '' -f /etc/ssh/ssh_host_ecdsa_key
+  $ ssh-keygen -t ed25519 -N '' -f /etc/ssh/ssh_host_ed25519_key
+  
 - créer les utilisateurs sur chaque machine
   $ useradd user1
   $ passwd user1
