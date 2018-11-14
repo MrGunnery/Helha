@@ -1,4 +1,6 @@
 - tout configurer oklm (IP etc)
+  $ nmcli c modify enp0s3 ipv4.method manual
+  $ nmcli c modify enp0s3 ipv4.addresse 10.0.0.1/24
 
 - regenerer les clés car elles sont identique à cause du clonage.
   $ rm -f /etc/ssh/ssh_host*
@@ -7,9 +9,18 @@
   $ ssh-keygen -t ecdsa -N '' -f /etc/ssh/ssh_host_ecdsa_key
   $ ssh-keygen -t ed25519 -N '' -f /etc/ssh/ssh_host_ed25519_key
   
+- verification du fichier de configuration
+  $ nano /etc/ssh/sshd_config
+  
 - créer les utilisateurs sur chaque machine
   $ useradd user1
   $ passwd user1
+  
+- connexion via ssh
+  $ ssh user1@10.0.0.1 => un nouveau dossier a ete creer => ~/.ssh => contient know_host 
+                          => clef public du serveur de connexion
+                          => zone de protection bits du dossier 700 => drwx------
+                          
   
 - copier un fichier avec scp (de la machine 10.0.0.1 a notre machine)
   $ scp user1@10.0.0.1:/home/user1/test ~/test
