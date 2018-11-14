@@ -1,4 +1,9 @@
-tout configurer oklm
+- tout configurer oklm (IP etc)
 
-regenerer les clés car elles sont identique à cause du clonage.
+- regenerer les clés car elles sont identique à cause du clonage.
   $ 
+
+- créer les utilisateurs sur chaque machine
+  $ useradd user1
+  
+  
