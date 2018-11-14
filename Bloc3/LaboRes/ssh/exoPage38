@@ -23,6 +23,8 @@
                           
   
 - copier un fichier avec scp (de la machine 10.0.0.1 a notre machine)
-  $ scp user1@10.0.0.1:/home/user1/test ~/test
-  
+  $ scp user1@10.0.0.1:/home/user1/test.txt ~/test
+
+- copier de mv1 à mv2 depuis mv2
+  $ scp user1@10.0.0.1:/home/user1/test.txt user2@10.0.0.3:/home/user3/
   
