@@ -1,7 +1,8 @@
 - tout configurer oklm (IP etc)
 
 - regenerer les clés car elles sont identique à cause du clonage.
-  $ 
+  $ rm -f /etc/ssh/ssh_host*
+  $ systemctl restart sshd
 
 - créer les utilisateurs sur chaque machine
   $ useradd user1
