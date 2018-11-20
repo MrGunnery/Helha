@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/root/admin/sh/initvar.sh
+. /root/admin/sh/initvar.sh
 
 for IP in 'cat $IPFILE'
 do
