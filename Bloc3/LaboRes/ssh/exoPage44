@@ -1,1 +1,10 @@
-ff
+→ vérifie les clauses RSAAuthentication et PubkeyAuthentication à yes dans /etc/ssh/sshd_config
+  RSAAuthentification n'est plus disponible dans openssh2
+  
+  $ cat /etc/ssh/sshd_config | grep Pub
+  
+→ génère un trousseau de clés de type RSA (sans passphrase)
+  $ ssh-keygen
+  
+Toutes les étapes suivantes :
+  $ ssh-copy-id user3@10.0.0.3 
