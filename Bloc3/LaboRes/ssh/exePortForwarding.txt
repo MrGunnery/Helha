@@ -22,3 +22,9 @@ MV3 a un serveur SSH qui tourne qui doit tourner sur le port 1234
   
 MV2 :
   $ iptables -t nat -A PREROUTING -p tcp -i enp0s3 --dport 22 -j DNAT --to 192.168.2.2:1234
+  $ iptables -t nat -L                   '( Affiche la table NAT de iptables, la règle est ajouté
+  $ iptables -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE
+  
+tout est fait :
+      $ ssh root@192.168.1.1              '( 192.168.1.1:22 pointe ensuite vers 192.168.2.2:1234
+      
