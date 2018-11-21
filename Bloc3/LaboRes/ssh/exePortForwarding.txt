@@ -1,1 +1,24 @@
-Faut voir MV2 comme un routeur et pas comme une machine.
+Enoncé Modif :
+- OK
+- NON
+- ...NE PEUVENT PAS...
+- ? (j'ai pas suivi)
+- ? (j'ai pas suivi)
+----------------------------------------------------
+
+MV1 : ip tout est config 1.2
+MV3 : pareil 2.2
+MV2 : 1.1 et 2.1
+      route est autocréer du coup alz maggle
+      ip forward activé
+
+MV1 peut ping 1.1 mais pas 2.2 du coup tout est OK.
+
+MV3 a un serveur SSH qui tourne qui doit tourner sur le port 1234
+  $ vi /etc/ssh/sshd_config
+    --> Port 1234
+  $ systemctl restart sshd
+  $ ss -tnl                             '( OK
+  
+MV2 :
+  $ iptables -t nat -A PREROUTING -p tcp -i enp0s3 --dport 22 -j DNAT --to 192.168.2.2:1234
