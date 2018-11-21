@@ -1,1 +1,3 @@
 
+  $ crontab -e                                      '( ça lance un Vi
+     -> 0 21 * * * /root/admin/sh/haltall.sh
