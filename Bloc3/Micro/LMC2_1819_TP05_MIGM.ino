@@ -26,47 +26,51 @@ void loop() {
 
 	unsigned long currentMillis = millis();
 	// compute the serial input
-	if (Serial.available() && val.equals("")) {
-		val = Serial.readString();
-		val = val.substring(0, 4);
-		nbr = val.toInt();
-		Serial.println(val);
-		MFS.write(nbr);
-		previousMillis = currentMillis;
-		delay(5000);
-		MFS.write("");
+	if (val.equals("")) {
+		if (Serial.available()) {
+			val = Serial.readString();
+			val = val.substring(0, 4);
+			nbr = val.toInt();
+			Serial.println(val);
+			MFS.write(nbr);
+			previousMillis = currentMillis;
+			delay(5000);
+			MFS.write("");
 
-	}
-	if (!val.equals("") && !digitalRead(BTN1)) {
-		MFS.write(nbr);
-		previousMillis = currentMillis;
-		delay(5000);
-		MFS.write("");
-	}
-	// check if it should go to sleep because of time
-	if (currentMillis - previousMillis >= interval && !val.equals("")) {
-		previousMillis = currentMillis;
+		}
+	} else {
+		if (!digitalRead(BTN1)) {
+			MFS.write(nbr);
+			previousMillis = currentMillis;
+			delay(5000);
+			MFS.write("");
+		}
+		// check if it should go to sleep because of time
+		if (currentMillis - previousMillis >= interval && !val.equals("")) {
+			previousMillis = currentMillis;
 
-		enterSleepMode();     // sleep function called here
+			enterSleepMode();     // sleep function called here
+		}
 	}
+
 }
 
 void enterSleepMode() {
 	Serial.print("Timer: SleepMode on\r\n");
 	delay(100);
-	// définition du mode de mise en veille
+	// dÃ©finition du mode de mise en veille
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 	sleep_enable()
 	;
-	// attachement d’une interruption sur la broche 2 (INT0)
+	// attachement dâ€™une interruption sur la broche 2 (INT0)
 	attachInterrupt(digitalPinToInterrupt(WAKEIN), wakeUpInterrupt, LOW);
-	// mise à veille
+	// mise Ã  veille
 	sleep_mode()
 	;
 	sleep_disable()
 	;
-	// réveil ici
-	// évite de constamment déclencher des interruptions inutiles!
+	// rÃ©veil ici
+	// Ã©vite de constamment dÃ©clencher des interruptions inutiles!
 	detachInterrupt(digitalPinToInterrupt(WAKEIN));
 	Serial.println("Timer: SleepMode off\r\n");
 
@@ -75,3 +79,4 @@ void enterSleepMode() {
 void wakeUpInterrupt() {
 
 }
+
