@@ -1,0 +1,19 @@
+
+###############################################################################
+# INSTALLATION                                                                #
+###############################################################################
+
+$ sudo apt-get install libusb-1.0-0-dev
+$ git clone https://github.com/texane/stlink stlink.git
+$ cd stlink
+$ make
+#install binaries:
+$ sudo cp build/Debug/st-* /usr/local/bin
+#install udev rules
+$ sudo cp etc/udev/rules.d/49-stlinkv* /etc/udev/rules.d/
+
+###############################################################################
+# FLASH                                                                       #
+###############################################################################
+
+$ st-flash write fichier.bin 0x8000000
