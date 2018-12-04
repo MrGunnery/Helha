@@ -1,0 +1,6 @@
+
+Requete pour recup donné Esync
+
+select esync_station.Name, esync_tags.Name, esync_tags.Descrition, esync_tags.val
+  From esync_stations, esync_tags
+  where esync_stations.id = esync_tags_StationId;
