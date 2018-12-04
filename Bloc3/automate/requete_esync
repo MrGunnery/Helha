@@ -1,6 +1,6 @@
 
 Requete pour recup donné Esync
 
-select esync_station.Name, esync_tags.Name, esync_tags.Descrition, esync_tags.val
+select esync_stations.Name, esync_tags.Name, esync_tags.Description, esync_tags.Val
   From esync_stations, esync_tags
   where esync_stations.id = esync_tags_StationId;
