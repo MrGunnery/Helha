@@ -35,3 +35,23 @@
 - 
     $ cd /var/named
     $ rm -f named.empty
+    
+$ systemctl start named     '( aller voir le fichier de log, car DNS n'est pas bavard, mais les erreurs serront affichés
+                               dans les logs )'
+$ cat /var/log/messages
+
+
+sur MV1 : 
+    $ echo "nameserver 127.0.0.1" > /etc/resolv.conf
+    
+    $ systemctl restart named
+    $ systemctl enable named
+    
+    $ ss -unl                   '( pour voir s'il le service DNS (port 53) ecoute bien )'
+    
+sur MV2 : 
+    $ echo "nameserver 192.168.8.2" > /etc/resolv.conf
+    $ yum install bind-utils -y         '( pour pouvoir utiliser nslookup )'
+    $ nslookup www.helha.be
+
+
