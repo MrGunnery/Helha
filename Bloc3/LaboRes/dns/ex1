@@ -1,2 +1,3 @@
 install bind
-    $ yum install bind bind-libs
+    $ yum install bind bind-libs bind-utils
+
