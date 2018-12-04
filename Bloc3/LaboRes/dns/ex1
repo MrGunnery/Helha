@@ -54,4 +54,4 @@ sur MV2 :
     $ yum install bind-utils -y         '( pour pouvoir utiliser nslookup )'
     $ nslookup www.helha.be
 
-
+    arrête de regarder troudbal
