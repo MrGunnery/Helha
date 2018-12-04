@@ -27,6 +27,11 @@
             file "named.localhost";
             allow-update { none; };
         };
+        zone "1.0.0.127.in-addr.arpa" IN {
+            type master;
+            file "named.loopback";
+        };
         
-        
-        
+- 
+    $ cd /var/named
+    $ rm -f named.empty
