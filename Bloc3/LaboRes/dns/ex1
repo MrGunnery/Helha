@@ -54,4 +54,13 @@ sur MV2 :
     $ yum install bind-utils -y         '( pour pouvoir utiliser nslookup )'
     $ nslookup www.helha.be
 
-    arrête de regarder troudbal
+####################################### arrête de regarder troudbal #######################################
+    
+Pour ne plus recevoir les adresses DNS du serveur dhcp :
+    $ vi /etc/........./ifcfg-enp0s3
+        -> PEERDNS=no
+
+#
+
+
+v
