@@ -1,3 +1,32 @@
-install bind
+- configurer le nécessaire (nat, ip, ip forward etc)...
+
+- install bind
     $ yum install bind bind-libs bind-utils
 
+- nettoyage / modif de /etc/named/named.conf (on ne voit pas tout)
+        - on efface les commentaires
+        
+        options {                                       '( on ne laisse que ça dans options )'
+            listen-on port 53 { XXXX ; 192.168.8.2 };   '( on ajoute 192.168.8.2 )'
+            directory "/var/named";
+        };
+        
+        zone "." IN {
+            type hint;
+            file "named.ca";
+        };
+        
+        - on efface toute le reste
+        
+        $ cd /etc/named
+        $ cat named.rdc1912.zones >> named.conf
+        '( on a ajouter des lignes, on refait le nettoyage / modif dans le fichier) )'
+        
+        zone "localhost" IN {
+            type master;
+            file "named.localhost";
+            allow-update { none; };
+        };
+        
+        
+        
