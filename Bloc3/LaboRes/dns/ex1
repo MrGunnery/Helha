@@ -60,7 +60,10 @@ Pour ne plus recevoir les adresses DNS du serveur dhcp :
     $ vi /etc/........./ifcfg-enp0s3
         -> PEERDNS=no
 
-#
+Pour vider le cache du DNS :
+    $ rndc flush
+
+f
 
 
 v
