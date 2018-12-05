@@ -3,7 +3,7 @@
 - install bind
     $ yum install bind bind-libs bind-utils
 
-- nettoyage / modif de /etc/named/named.conf (on ne voit pas tout)
+- nettoyage / modif de /etc/named.conf (on ne voit pas tout)
         - on efface les commentaires
         
         options {                                       '( on ne laisse que ça dans options )'
@@ -18,7 +18,7 @@
         
         - on efface toute le reste
         
-        $ cd /etc/named
+        $ cd /etc
         $ cat named.rdc1912.zones >> named.conf
         '( on a ajouter des lignes, on refait le nettoyage / modif dans le fichier) )'
         
