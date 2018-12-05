@@ -19,7 +19,7 @@
         - on efface toute le reste
         
         $ cd /etc
-        $ cat named.rdc1912.zones >> named.conf
+        $ cat named.rfc1912.zones >> named.conf
         '( on a ajouter des lignes, on refait le nettoyage / modif dans le fichier) )'
         
         zone "localhost" IN {
