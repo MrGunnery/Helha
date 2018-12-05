@@ -1,0 +1,7 @@
+root :
+  user : root
+  pass : eSyncPwd
+
+Utilisateur :
+  user : eSyncExport
+  pass : eSyncPwd
