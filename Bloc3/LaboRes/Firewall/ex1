@@ -54,4 +54,10 @@ modifier fwless.sh (ajouter apres derniere modif)
   iptables -t nat -A PREROUTING -i enp0s3 -p tcp --dport 80 -j DNAT --to-destination $webext:80
   iptables -t nat -A PREROUTING -i enp0s3 -p tcp --dport 22 -j DNAT --to-destination $sshext:22
   
+  # + ouvrir le FORWARD car il est DROP par default
+  iptables -A FORWARD -i enp0s3 -o enp0s10 -p tcp --dport 80 -d $webext -j ACCEPT
+  iptables -A FORWARD -o enp0s3 -i enp0s10 -p tcp --sport 80 -s $webext -j ACCEPT
+  iptables -A FORWARD -i enp0s3 -o enp0s10 -p tcp --dport 22 -d $sshext -j ACCEPT
+  iptables -A FORWARD -o enp0s3 -i enp0s10 -p tcp --sport 22 -s $sshext -j ACCEPT
+  
   
