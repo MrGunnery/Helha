@@ -60,3 +60,5 @@ ajouter
   iptables -A FORWARD -o enp0s3 -i enp0s10 -p tcp --sport 22 -s $sshext -j ACCEPT
   
   
+si on veut sauver les regles de firwall 
+  service iptables save
