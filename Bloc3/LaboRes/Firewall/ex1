@@ -1,12 +1,28 @@
 changer IP dans fw.sh (fw)
   mettre IP de enp0s3 a ipext
+
 regarder conf du dns
   nano /etc/named.conf
     modifier les forwarders
     mettre forward only
     retirer le 109 qui ne sert a rien
   relancer named
-    sys
+    systemctl restart named
+
+afficher le resolv.conf du firewall
+  modifier et mettre l'ip du dns interne
+
+copier fw.sh fwless.sh (fw)
+
+modifier la section start
+
+ajouter
+  for chaine in INPUT OUTPUT FORWARD
+  do
+    iptables -P $chaine DROP
+  done
+  iptables -A INPUT -i lo -j ACCEPT
+  iptables -A OUTPUT -0 lo -j ACCEPT
 
 modifier fwless.sh (ajouter apres derniere modif)
   # fw pour que les lan puissent communiquer avec le dnsint
@@ -26,9 +42,16 @@ modifier fwless.sh (ajouter apres derniere modif)
   # ne pas oublier le nat
   iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
  
-  # Autoriser l'acces ssh sur le fw a partir de lan interne
+  # Autoriser l'acces ssh sur le fw a partir de lanint
   iptables -A INPUT -i enp0s9 -s $lanint -p tcp --dport 22 -j ACCEPT
   iptables -A OUTPUT -o enp0s9 -d $lanint -p tcp --dport 22 -j ACCEPT
   
   # Autoriser l'acces http sur le webint a partir de lanws
+  iptables -A FORWARD -i enp0s8 -o enp0s9 -p tcp --dport 80 --sport 1024: -s $lanws -d $webint -j ACCEPT
+  iptables -A FORWARD -0 enp0s8 -i enp0s9 -p tcp --sport 80 --dport 1024: -d $lanws -s $webint -j ACCEPT
+
+  # Autoriser l'acces au service de la dmz a partir de l'exterieur
+  iptables -t nat -A PREROUTING -i enp0s3 -p tcp --dport 80 -j DNAT --to-destination $webext:80
+  iptables -t nat -A PREROUTING -i enp0s3 -p tcp --dport 22 -j DNAT --to-destination $sshext:22
+  
   
