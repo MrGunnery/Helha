@@ -34,8 +34,8 @@ modifier la section start
   iptables -A OUTPUT -o enp0s9 -d $lanint -p tcp --dport 22 -m state --state ESTABLISHED -j ACCEPT
   
   # Autoriser l'acces http sur le webint a partir de lanws
-  iptables -A FORWARD -i enp0s8 -o enp0s9 -p tcp --dport 80 --sport 1024: -s $lanws -d $webint -j ACCEPT
-  iptables -A FORWARD -0 enp0s8 -i enp0s9 -p tcp --sport 80 --dport 1024: -d $lanws -s $webint -j ACCEPT
+  iptables -A FORWARD -i enp0s8 -o enp0s9 -p tcp --dport 80 --sport 1024: -s $lanws -d $webint -m state --state NEW,ESTABLISHED -j ACCEPT
+  iptables -A FORWARD -0 enp0s8 -i enp0s9 -p tcp --sport 80 --dport 1024: -d $lanws -s $webint -m state --state ESTABLISHED -j ACCEPT
 
   # Autoriser l'acces au service de la dmz a partir de l'exterieur
   iptables -t nat -A PREROUTING -i enp0s3 -p tcp --dport 80 -j DNAT --to-destination $webext:80
