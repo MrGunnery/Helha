@@ -23,8 +23,7 @@ ajouter
   done
   iptables -A INPUT -i lo -j ACCEPT
   iptables -A OUTPUT -0 lo -j ACCEPT
-
-modifier fwless.sh (ajouter apres derniere modif)
+  
   # fw pour que les lan puissent communiquer avec le dnsint
   for lan in $lanws $lanint $dmz
   do
