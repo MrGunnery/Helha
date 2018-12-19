@@ -1,6 +1,6 @@
-copier fwless.sh fwfull.sh (fw)
+# copier fwless.sh fwfull.sh (fw)
 
-modifier la section start
+# modifier la section start
   
   # DROP de toutes les regles
   for chaine in INPUT OUTPUT FORWARD
