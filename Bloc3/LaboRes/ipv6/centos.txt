@@ -1,0 +1,36 @@
+Ip forward sur router
+  net.ipv6.conf.all.forwarding=1
+config ip /etc/sysconfig/network-scripts/ifcfg-eth0
+  IPV6INIT="yes"
+  IPV6ADDR="2001:1234:1234:1234::64/64"
+  IPV6_DEFAULTGW="<ipv6-address>"
+  
+Routing /etc/sysconfig/netwok-scripts/route6-eth0
+  
+  
+  
+IPv6 Ping
+  ping6 ::1
+IPv6 Routes
+  ip -6 route show
+IPv6 Traceroute
+  traceroute6 ipv6.google.com
+View IPv6 Network Connections
+  netstat -antup6
+  
+  
+  nmcli con mod	                ifcfg-* file	          Effect
+ipv6.method manual	            IPV6_AUTOCONF=no	      IPv6 is configured statically
+ipv6.method auto	              IPV6_AUTOCONF=yes	      Will configure network settings using SLAAC from router advertisements.
+ipv6.method dhcp	              IPV6_AUTOCONF=no
+                                DHCPV6C=yes	            Will configure network settings by using DHCPv6, but not SLAAC
+ipv6 . addresses
+"2001:db8::a/64 2001:db8::1"	  IPV6ADDR=2001:db8::a/64
+                                IPV6_DEFAULTGW=2001:db8::1	Sets static IPv6 Address and Gateway
+ipv6.dns . . .	                DNS0=. . .	            Modify /etc/resolv.conf to use this nameserver
+ipv6.dns-search example.com	    DOMAIN=example.com	    Modify /etc/resolv.conf to use to use this domain in the search directive
+ipv6.ignore-auto-dns true	      IPV6_PEERDNS=no	        Ignore DNS server information from the DHCP server
+connection.autoconnect yes	    ONBOOT=YES	            Automatically activates the connection at boot
+connection.id eth0	            NAME=eth0	              The name of this connection
+connection.interface-name eth0	DEVICE=eth0	            The connection is bound to this network interface with this name
+802-3-ethernet.mac-address . . .	HWADDR=. . .	        The connection is bound to the network interface with this MAC Address
