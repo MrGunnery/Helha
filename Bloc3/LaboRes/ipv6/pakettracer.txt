@@ -1,0 +1,12 @@
+ Permettre au routeur de transférer des paquets IPv6 (il faut etre en conf)
+      ipv6 unicast-routing 
+ 
+ Configuration d’adresse IPv6
+      ipv6 addresse 2001:db8:1:1::1/64 (il faut etre en conf-int)
+      
+ Configuration d'adresse IPV6 link-local (il faut etre en conf-int)
+      ipv6 addresse fe80::1 ink-local
+      
+ Routing IPV6 (il faut etre en conf)
+      ipv6 route 2001:db8:1:1::0/64 2001:db8:1:a001::1 
+      ipv6 route addresse reseau  adresse de l'interface suivante
