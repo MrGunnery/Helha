@@ -1,0 +1,17 @@
+- Configuration materiel
+  Configurer adresse MPI
+    addresse + reseau
+	Activer memento de cadence
+- Configurer le reseau Netpro
+	mettre les api sur le reseau
+- Selectioner le reseau
+	outils → global data 
+		completer le tableau comme on veut
+		!!!! ne pas oublier de compiler !!!!
+- Configurer le transfert
+	outils → parametre de l'interface PG/PC
+		Choisir le bon adaptateur
+
+
+Voir pdf
+		
