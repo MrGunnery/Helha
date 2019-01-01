@@ -1,0 +1,31 @@
+- Ajouter module noe
+- Ajouter un reseau et configurer les ips
+- Configurer la voi pour les port ethernet
+- Si on veut avoir les infos sur le statu:
+  dans la config port ethernet aller sur l'onglet Objet E/S 
+  activer se qu'il faut
+- Pour l'encoie de donnée de type differente, il faut creer une structure
+  Variables elementaire
+    onglet type DDT
+- Pour config l'envoie de donnée
+  dans varialbes elementaire
+    donnée global
+      pub
+    Groupe
+      nom du groupe module noe
+    Id
+      Id unique
+- Pour config reception de donée
+  dans varialbes elementaire
+    donnée global
+      sub
+    Groupe
+      nom du groupe module noe
+    Id
+      Id de celui qui envoie
+
+tuto
+https://www.youtube.com/watch?v=II5GC1pRnYk
+
+Status
+https://www.youtube.com/watch?v=ZTDFqdAbWxQ
