@@ -11,13 +11,18 @@
 // appeler de cette facon, il utiliser l'addresse par default 0x40
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
-SoftwareSerial Bluetooth(3, 4); // Arduino(RX, TX) - HC-05 Bluetooth (TX, RX)
-int servoPos[4]; // position courrante
-int servoPPos[4]; // position precedente
-int ServoSP[4][50]; // pour enregistrement de position positions/steps
+// Arduino(RX, TX) - HC-05 Bluetooth (TX, RX)
+SoftwareSerial Bluetooth(3, 4); 
+// position courrante
+int servoPos[4]; 
+// position precedente
+int servoPPos[4]; 
+// pour enregistrement de position positions/steps
+int ServoSP[4][50]; 
 int speedDelay = 20;
 int index = 0;
-String dataIn = ""; // initialisation de datain
+// initialisation de datain
+String dataIn = ""; 
 
 void setup() {
 	Serial.begin(9600);
@@ -25,8 +30,10 @@ void setup() {
 	Serial.println("RESET");
 	pinMode(7, INPUT);
 	pwm.begin();
-	pwm.setPWMFreq(FREQUENCY);  // set de la frequence du controleur
-	Bluetooth.begin(9600); // parametrage de la comunication bleuthoot
+	// set de la frequence du controleur
+	pwm.setPWMFreq(FREQUENCY); 
+	// parametrage de la comunication bleuthoot
+	Bluetooth.begin(9600); 
 	Bluetooth.setTimeout(1);
 	delay(20);
 
@@ -80,12 +87,17 @@ void loop() {
 }
 
 void runServo() {
-	while (dataIn != "RESET") {   // boucle jusqu'a reset
-		for (int i = 0; i <= index - 1; i++) { // pour toutes les potitions sauver
-			if (Bluetooth.available() > 0) {      // Datain disponibble ?
+	// boucle jusqu'a reset
+	while (dataIn != "RESET") {  
+		// pour toutes les potitions sauver
+		for (int i = 0; i <= index - 1; i++) { 
+			// Datain disponibble ?
+			if (Bluetooth.available() > 0) {      
 				dataIn = Bluetooth.readString();
-				if (dataIn == "PAUSE") {          // Si bouton pause est presser
-					while (dataIn != "RUN") {         // on attent Run
+				// Si bouton pause est presser
+				if (dataIn == "PAUSE") {    
+					// on attent Run
+					while (dataIn != "RUN") {         
 						if (Bluetooth.available() > 0) {
 							dataIn = Bluetooth.readString();
 							if (dataIn == "RESET") {
@@ -97,7 +109,8 @@ void runServo() {
 				// Si la vitesse est changer
 				if (dataIn.startsWith("ss")) {
 					String dataInS = dataIn.substring(2, dataIn.length());
-					speedDelay = dataInS.toInt(); // changer la vitesse des servos (delay time)
+					// changer la vitesse des servos (delay time)
+					speedDelay = dataInS.toInt(); 
 				}
 			}
 			// actione les servos.
@@ -126,13 +139,16 @@ void autoServo(int i1, int i2) {
 
 // Actione les servos
 void actionServo(int i, String dataIn) {
-	String dataInS = dataIn.substring(2, dataIn.length()); // recuprer seulment les nombre.
-	servoPos[i] = dataInS.toInt();  // conversion en Integer
+	// recuprer seulment les nombre.
+	String dataInS = dataIn.substring(2, dataIn.length());
+	// conversion en Integer
+	servoPos[i] = dataInS.toInt();  
 
 	if (servoPPos[i] > servoPos[i]) {
 		for (int j = servoPPos[i]; j >= servoPos[i]; j--) {
 			pwm.setPWM(i, 0, pulseWidth(j, i));
-			delay(20);    // Limite la vitesse
+			// Limite la vitesse
+			delay(20);    
 		}
 	}
 
