@@ -11,9 +11,6 @@
 // appeler de cette facon, il utiliser l'addresse par default 0x40
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
-// mon servo # conteur
-uint8_t servonum = 0;
-
 SoftwareSerial Bluetooth(3, 4); // Arduino(RX, TX) - HC-05 Bluetooth (TX, RX)
 int servoPos[4]; // position courrante
 int servoPPos[4]; // position precedente
