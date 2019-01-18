@@ -1,0 +1,55 @@
+INTRO :
+
+Les routeurs Cisco sont par défaut configurés en SLAAC. L'adresse IPv6 de l'interface Fa0 du routeur est configurée
+avec un préfixe réseau et l'option eui-64 par les commandes suivantes :
+Routeur(config)# interface fa0
+Routeur (config-if)# ipv6 address 2001:db8:54:1:/64 eui-64
+
+L’interface fa0 obtient une adresse IPv6 complète à partir de son préfixe réseau et de son adresse MAC :
+adresse IPv6 globale de Fa0 : 2001:db8:54:1:20a:f3ff:fec8:6e1
+
+Le poste client est en autoconfiguration IPv6. Il envoie un message RS (Router Solicitation) en multidiffusion afin de
+solliciter un préfixe réseau auprès d'un routeur. Celui-ci fournit le préfixe réseau au client qui complète son adresse
+avec l'adresse MAC de sa carte réseau :
+Lien local: fe80::206:2aff:fe67:17ba
+@IPv6: 2001:db8:54:1:206:2aff:fe67:17ba/64
+@passerelle: fe80::20a:f3ff:fec8:6e10
+
+On peut noter que l'adresse de passerelle est l'adresse de lien local du routeur
+
+######################
+Routeur 1 : 
+
+ Configurer le routeur R1
+§ Effectuer les branchements conformément au schéma réseau.
+§ Activer le routage IPv6 par la commande suivante, indispensable pour activer les messages d'état ICMPv6 :
+      R1(config)#ipv6 unicast-routing
+§ Paramétrer l'adresse IPv6 de l'interface Fa0 (RESEAU ENTRE ROUTEUR):
+      R1(config)#interface Fa0/0
+      R1(config-if)#ipv6 address fc00::1/64
+      R1(config-if)#no shutdown
+§ Paramétrer l'adresse de fa0/1 (RESEAU VERS SWITCH)
+      R1(config-if)# ipv6 address 2001:db8:1:1::/64 eui-64
+§ Paramétrer l'adresse IPv6 de fa1/0
+2. Effectuer les tests de validation par les commandes suivantes
+§ Afficher le paramétrage des interfaces:
+      R1# show ipv6 interface brief
+      R1# show ipv6 interface
+§ Afficher la table de routage:
+      R1# show ipv6 route
+
+#####################
+Routeur 2 :
+
+5. Sur le routeur R2, paramétrer l'adresse IPv6 de l'interface Fa0/0
+§ Paramétrer l’adresse IPv6 de l’interface fa0 (entre routeur)
+§ Paramétrer les adresses de fa0/1 (machine) :
+      Adresse globale : R2(config)# ipv6 address 2001:db8:2::/64 eui-64
+      Adresse de lien local : R2(config)# ipv6 address fe80::1 link-local
+      
+#####################
+Route :
+
+7. Mettre en place une route par défaut sur le routeur R1 (R1 vers R2):
+R1(config)# ipv6 route ::/0 fc00::2
+
