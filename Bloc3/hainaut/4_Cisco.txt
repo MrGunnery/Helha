@@ -1,0 +1,29 @@
+1re partie : Configurer l’adressage IPv6 sur le routeur
+
+Étape 1 : Permettez au routeur de transférer des paquets IPv6.
+a. Exécutez la commande de configuration globale ipv6 unicast-routing. Cette commande doit être
+configurée en vue de permettre au routeur de transférer des paquets IPv6. Cette commande sera traitée
+au cours d’un prochain semestre.
+R1(config)# ipv6 unicast-routing
+
+Étape 2 : Configuration de l’adressage IPv6 sur GigabitEthernet0/0
+a. Cliquez sur R1, puis sur l’onglet CLI. Appuyez sur Entrée.
+b. Passez en mode d’exécution privilégié.
+c. Exécutez les commandes nécessaires pour passer en mode de configuration d’interface pour
+GigabitEthernet0/0.
+d. Configurez l’adresse IPv6 à l’aide de la commande suivante :
+R1(config-if)# ipv6 address 2001:DB8:1:1::1/64
+e. Configurez l’adresse IPv6 link-local à l’aide de la commande suivante :
+R1(config-if)# ipv6 address FE80::1 link-local
+f. Activez l’interface.
+
+Étape 3 : Configurez l’adressage IPv6 sur GigabitEthernet0/1.
+a. Exécutez les commandes nécessaires pour passer en mode de configuration d’interface pour
+GigabitEthernet0/1.
+b. Consultez la table d’adressage pour obtenir l’adresse IPv6 adéquate.
+c. Configurez l’adresse IPv6, l’adresse link-local et activez l’interface.
+
+Étape 4 : Configurez l’adressage IPv6 sur Serial0/0/0.
+a. Exécutez les commandes nécessaires pour passer en mode de configuration d’interface pour Serial0/0/0.
+b. Consultez la table d’adressage pour obtenir l’adresse IPv6 adéquate.
+c. Configurez l’adresse IPv6, l’adresse link-local et activez l’interface.
