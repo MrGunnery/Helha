@@ -1,1 +1,7 @@
 Service linux
+
+a) listen 8888 => httpd.conf
+b)? 
+c) a) script voir cour 
+   b) curl -v www.exam.men:8888/x
+d) ServerTokens Prod => httpd.conf
